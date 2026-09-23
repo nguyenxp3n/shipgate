@@ -1,0 +1,11 @@
+id: notifications
+scope: Notification intents/channels
+authority: Business mutation commits independently unless product rule says otherwise
+required_decisions:
+- intent ownership
+- channel routing
+- retry/dedupe
+- preferences
+- delivery evidence
+requires_failure_contract: true
+requires_tests: true

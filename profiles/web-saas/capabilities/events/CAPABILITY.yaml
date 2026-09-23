@@ -1,0 +1,11 @@
+id: events
+scope: Domain/event propagation
+authority: Event schemas and interaction contracts
+required_decisions:
+- envelope/versioning
+- producer/consumer
+- ordering
+- retry/idempotency
+- retention/replay
+requires_failure_contract: true
+requires_tests: true

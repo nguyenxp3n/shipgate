@@ -1,0 +1,11 @@
+id: files
+scope: Object/file storage
+authority: File contract and storage authority
+required_decisions:
+- MIME/content validation
+- size/provider
+- authorization/signed URLs
+- malware/metadata policy
+- retention/orphan cleanup
+requires_failure_contract: true
+requires_tests: true

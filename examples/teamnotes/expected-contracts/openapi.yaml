@@ -1,0 +1,44 @@
+openapi: 3.0.3
+info: {title: TeamNotes API, version: 1.0.0}
+paths:
+  /api/v1/notes:
+    get:
+      operationId: listNotes
+      x-auth-required: true
+      x-idempotency: none
+      x-error-codes: [AUTH_REQUIRED, FORBIDDEN]
+      responses:
+        '200': {description: OK}
+    post:
+      operationId: createNote
+      x-auth-required: true
+      x-idempotency: optional-key
+      x-error-codes: [AUTH_REQUIRED, FORBIDDEN, VALIDATION_FAILED]
+      responses:
+        '201': {description: Created}
+  /api/v1/organizations/{organizationId}/invitations:
+    post:
+      operationId: inviteOrganizationMember
+      x-auth-required: true
+      x-idempotency: required-key
+      x-error-codes: [AUTH_REQUIRED, FORBIDDEN, CONFLICT, VALIDATION_FAILED]
+      parameters:
+        - in: path
+          name: organizationId
+          required: true
+          schema: {type: string, format: uuid}
+      responses:
+        '202': {description: Accepted}
+  /api/v1/notes/{noteId}/shares:
+    post:
+      operationId: shareNote
+      x-auth-required: true
+      x-idempotency: required-key
+      x-error-codes: [AUTH_REQUIRED, FORBIDDEN, NOT_FOUND, VALIDATION_FAILED]
+      parameters:
+        - in: path
+          name: noteId
+          required: true
+          schema: {type: string, format: uuid}
+      responses:
+        '200': {description: Shared}

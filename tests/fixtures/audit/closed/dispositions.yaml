@@ -1,0 +1,5 @@
+- finding_id: CTR-001
+  disposition: FIXED
+  reason: corrected canonical source
+  resolution_refs: [ADR-001]
+  verification_refs: [test-001]

@@ -1,0 +1,6 @@
+checks:
+- idempotent redelivery
+- retry exhaustion
+- dead-letter/poison handling
+- ordering contract
+- consumer failure

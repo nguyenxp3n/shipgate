@@ -1,0 +1,6 @@
+kind: wp-gate-timing
+expected_codes: [WP_INVARIANT_ACTIVATION_LATE]
+invariant:
+  id: AUTH-001
+  required_from_wp: WP-004
+  activated_from_wp: WP-008

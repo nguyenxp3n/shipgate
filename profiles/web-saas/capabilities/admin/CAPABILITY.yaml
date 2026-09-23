@@ -1,0 +1,11 @@
+id: admin
+scope: Privileged operator functions
+authority: Admin authorization/audit policy
+required_decisions:
+- step-up/re-auth
+- impersonation
+- destructive/bulk operations
+- reason/audit trail
+- privacy/export tools
+requires_failure_contract: true
+requires_tests: true

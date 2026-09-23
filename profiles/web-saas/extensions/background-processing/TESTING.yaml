@@ -1,0 +1,5 @@
+extension: background-processing
+required_test_classes:
+- redelivery
+- retry exhaustion
+- poison message

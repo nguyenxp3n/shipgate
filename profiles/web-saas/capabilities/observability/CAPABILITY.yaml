@@ -1,0 +1,11 @@
+id: observability
+scope: Logs/metrics/traces/alerts
+authority: Operations observability standard
+required_decisions:
+- structured logs
+- request/correlation IDs
+- golden signals
+- PII redaction
+- alert ownership
+requires_failure_contract: true
+requires_tests: true

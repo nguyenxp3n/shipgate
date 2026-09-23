@@ -1,0 +1,7 @@
+journeys:
+- signup/login
+- primary business journey
+- permission boundary
+- critical admin action when enabled
+- logout/session expiry
+principle: Use E2E for critical journeys, not every branch.

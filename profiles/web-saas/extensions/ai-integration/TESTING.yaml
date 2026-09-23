@@ -1,0 +1,6 @@
+extension: ai-integration
+required_test_classes:
+- PII egress
+- invalid output
+- cost/rate/fallback
+- authority boundary

@@ -1,0 +1,5 @@
+project: ai-project-finalization-workflow
+kind: cli-tooling
+profile: generic-core
+version: 2.0.0
+web_saas_profile_applies: false

@@ -1,0 +1,11 @@
+id: operations
+scope: Runtime/deployment/recovery
+authority: Operations/deployment specification
+required_decisions:
+- configuration/secrets
+- health/readiness
+- deploy/rollback
+- backup/restore
+- incident runbook
+requires_failure_contract: true
+requires_tests: true

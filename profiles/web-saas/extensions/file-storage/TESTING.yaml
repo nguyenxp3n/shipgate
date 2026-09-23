@@ -1,0 +1,5 @@
+extension: file-storage
+required_test_classes:
+- invalid content
+- authorization
+- orphan cleanup

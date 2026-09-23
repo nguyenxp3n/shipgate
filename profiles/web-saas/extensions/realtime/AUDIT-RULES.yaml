@@ -1,0 +1,5 @@
+extension: realtime
+rules:
+- Confirm unauthorized channel has explicit semantics and evidence.
+- Confirm reconnect/replay has explicit semantics and evidence.
+- Confirm backpressure has explicit semantics and evidence.

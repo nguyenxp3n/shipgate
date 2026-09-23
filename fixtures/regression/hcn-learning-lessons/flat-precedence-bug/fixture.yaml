@@ -1,0 +1,5 @@
+kind: flat-precedence
+expected_codes: [AUTH_DUPLICATE_PRIMARY]
+claims:
+  - {subject: http_wire_shape, primary: prose/API.md}
+  - {subject: http_wire_shape, primary: contracts/openapi.yaml}

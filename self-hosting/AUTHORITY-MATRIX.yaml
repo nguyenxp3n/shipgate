@@ -1,0 +1,17 @@
+subjects:
+  product_behavior:
+    composition: single
+    primary: [docs/superpowers/specs/shipgate-architecture-spec.md]
+  implementation_sequence:
+    composition: single
+    primary: [docs/superpowers/plans/shipgate-master-plan.md]
+  machine_schemas:
+    composition: composed
+    primary: [schemas/*.schema.json]
+    merge_semantics: Each schema owns one declared machine document type.
+  runtime_toolchain:
+    composition: single
+    primary: [pyproject.toml]
+  command_gateway:
+    composition: single
+    primary: [Taskfile.yml]

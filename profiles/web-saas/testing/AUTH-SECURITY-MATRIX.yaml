@@ -1,0 +1,9 @@
+checks:
+- authentication bypass
+- authorization bypass
+- tenant isolation when enabled
+- CSRF when applicable
+- CORS when applicable
+- session fixation/replay
+- rate limiting
+- secret leakage

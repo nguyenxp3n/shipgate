@@ -1,0 +1,24 @@
+subjects:
+  product_behavior:
+    composition: single
+    primary:
+      - docs/core/PRODUCT-SPEC.md
+  machine_contract_shape:
+    composition: composed
+    primary:
+      - contracts/openapi/openapi.yaml
+      - contracts/schemas/
+    merge_semantics: Each machine contract owns only its declared wire domain; overlap is forbidden.
+  security_invariants:
+    composition: single
+    primary:
+      - docs/core/SECURITY.md
+  implementation_ordering:
+    composition: single
+    primary:
+      - docs/agent-spec/work-packages/
+  historical_audit:
+    composition: composed
+    primary: []
+    merge_semantics: Advisory evidence only; never satisfies normative authority.
+    authority: advisory_only

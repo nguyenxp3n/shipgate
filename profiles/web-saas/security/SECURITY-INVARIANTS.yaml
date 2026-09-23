@@ -1,0 +1,18 @@
+invariants:
+- id: WS-SEC-AUTHZ-BACKEND
+  description: Backend authorization is authoritative
+  active_from_wp: WP-000
+  required_tests:
+  - integration
+  - security
+- id: WS-SEC-PRIVATE-CACHE
+  description: Private data is not silently cached for offline use
+  active_from_wp: WP-000
+  required_tests:
+  - security
+- id: WS-SEC-TENANT
+  description: Enabled tenancy enforces isolation
+  active_from_wp: project-resolved
+  required_tests:
+  - integration
+  - security

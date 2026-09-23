@@ -1,0 +1,48 @@
+capabilities:
+  frontend: required
+  api: required
+  auth: required
+  authorization: required
+  database: required
+  observability: required
+  multi_tenant: optional_enabled
+  organizations: optional_enabled
+  events: optional_enabled
+  jobs: optional_enabled
+  email: optional_enabled
+  admin: optional_enabled
+  files: disabled
+  webhooks: disabled
+auth:
+  credential_transport: cookie
+  csrf: origin-and-same-site
+  cross_origin_credentials: false
+  session_or_token_model: true
+permissions:
+  catalog: [notes.read, notes.write, notes.share, organizations.invite, audit.read]
+  backend_authoritative: true
+database:
+  ownership_resolved: true
+  entities:
+    - {id: memberships, tenant_owned: true, tenant_key: organization_id, enforcement: application}
+    - {id: invitations, tenant_owned: true, tenant_key: organization_id, enforcement: application}
+    - {id: notes, tenant_owned: true, tenant_key: organization_id, enforcement: application}
+    - {id: note_shares, tenant_owned: true, tenant_key: organization_id, enforcement: application}
+async_contracts:
+  idempotency: consumer-inbox
+  retry: exponential-backoff
+  failure: durable-retry-then-dead-letter
+  dead_letter: operator-visible
+security:
+  ssrf: {status: NOT_APPLICABLE, evidence: No user-controlled outbound URL fetch surface exists.}
+operations:
+  health_readiness: true
+  observability: true
+  deployment: true
+  backup_restore: true
+test_matrix:
+  security: [tenant_isolation, csrf, authorization]
+  available: [integration, security, contract, e2e]
+  invariants:
+    - {id: TENANT-001, active_from_wp: WP-005, required_tests: [integration, security]}
+    - {id: API-001, active_from_wp: WP-003, required_tests: [contract]}

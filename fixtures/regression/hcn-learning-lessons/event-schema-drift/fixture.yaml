@@ -1,0 +1,5 @@
+kind: event-schema-drift
+expected_codes: [EVENT_SCHEMA_DRIFT]
+event:
+  catalog_fields: [accountId, occurredAt]
+  schema_fields: [account_id, occurredAt]

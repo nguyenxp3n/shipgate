@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://apfw.local/schemas/authority-matrix.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "subjects"
+  ],
+  "properties": {
+    "subjects": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "composition",
+          "primary"
+        ],
+        "properties": {
+          "composition": {
+            "type": "string",
+            "enum": [
+              "single",
+              "composed"
+            ]
+          },
+          "primary": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "merge_semantics": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "authority": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

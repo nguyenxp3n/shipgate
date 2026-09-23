@@ -1,0 +1,3 @@
+findings:
+  - {id: AUD-1, severity: HIGH, category: SECURITY}
+dispositions: []

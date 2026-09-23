@@ -1,0 +1,2 @@
+conflict_resolutions: [{id: CONFLICT-1, chosen_winner: A}]
+writes: [workspace/intake/conflicts.yaml]

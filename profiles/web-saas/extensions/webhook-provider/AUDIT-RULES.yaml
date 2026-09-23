@@ -1,0 +1,5 @@
+extension: webhook-provider
+rules:
+- Confirm spoofing has explicit semantics and evidence.
+- Confirm replay has explicit semantics and evidence.
+- Confirm duplicate/out-of-order has explicit semantics and evidence.

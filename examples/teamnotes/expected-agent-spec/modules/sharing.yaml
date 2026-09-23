@@ -1,0 +1,8 @@
+id: sharing
+owned_data: &id001
+- note_shares
+must_not_write: []
+writes: *id001
+dependencies:
+- notes
+- organizations

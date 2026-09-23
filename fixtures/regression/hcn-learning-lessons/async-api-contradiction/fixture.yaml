@@ -1,0 +1,7 @@
+kind: async-response-contradiction
+expected_codes: [ASYNC_RESPONSE_AUTHORITY_CONTRADICTION]
+operation:
+  response_claims_authoritative_fields: [reward_balance]
+  authoritative_owner: rewards
+  update_mode: asynchronous_event
+  synchronous_readback: false

@@ -1,0 +1,5 @@
+extension: background-processing
+rules:
+- Confirm redelivery has explicit semantics and evidence.
+- Confirm retry exhaustion has explicit semantics and evidence.
+- Confirm poison message has explicit semantics and evidence.

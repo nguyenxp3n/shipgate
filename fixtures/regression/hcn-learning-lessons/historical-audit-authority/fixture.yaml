@@ -1,0 +1,7 @@
+kind: historical-authority
+expected_codes: [AUTH_HISTORICAL_LEAKAGE]
+authority:
+  subjects:
+    product_behavior:
+      composition: single
+      primary: [docs/audits/historical/old-audit.md]

@@ -1,0 +1,6 @@
+extension: ai-integration
+rules:
+- Confirm PII egress has explicit semantics and evidence.
+- Confirm invalid output has explicit semantics and evidence.
+- Confirm cost/rate/fallback has explicit semantics and evidence.
+- Confirm authority boundary has explicit semantics and evidence.

@@ -1,0 +1,14 @@
+id: multi-tenant
+capability: multi_tenant
+version: 2.0.0
+documents:
+- REQUIREMENTS.md
+schemas: []
+validators:
+- validate_database
+testing:
+- TESTING.yaml
+audit_rules:
+- AUDIT-RULES.yaml
+work_package_rules:
+- WORK-PACKAGE-RULES.md

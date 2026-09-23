@@ -1,0 +1,9 @@
+id: audit-log
+scope: Security/audit evidence
+authority: Append-oriented audit contract
+required_decisions:
+- who/what/target/when/result/request id
+- sensitive-field redaction
+- retention/access
+requires_failure_contract: true
+requires_tests: true

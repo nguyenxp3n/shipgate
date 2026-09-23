@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://apfw.local/schemas/change-transaction.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "status",
+    "reason",
+    "finding",
+    "affected_authorities",
+    "downstream_artifacts",
+    "version_impact",
+    "validators_green"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_-]{1,63}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "OPEN",
+        "VALIDATED",
+        "CLOSED"
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "finding": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "affected_authorities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "downstream_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z][A-Z0-9_-]{1,63}$"
+      },
+      "uniqueItems": true
+    },
+    "version_impact": {
+      "type": "string",
+      "enum": [
+        "none",
+        "patch",
+        "minor",
+        "major"
+      ]
+    },
+    "validators_green": {
+      "type": "boolean"
+    }
+  }
+}

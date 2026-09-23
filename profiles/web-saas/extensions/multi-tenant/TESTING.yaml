@@ -1,0 +1,5 @@
+extension: multi-tenant
+required_test_classes:
+- tenant isolation
+- cross-tenant authorization
+- tenant delete/export

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://apfw.local/schemas/work-package-graph.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "entrypoint",
+    "packages"
+  ],
+  "properties": {
+    "entrypoint": {
+      "type": "string",
+      "pattern": "^WP-[0-9]{3,}$"
+    },
+    "packages": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^WP-[0-9]{3,}$"
+      },
+      "uniqueItems": true
+    }
+  }
+}

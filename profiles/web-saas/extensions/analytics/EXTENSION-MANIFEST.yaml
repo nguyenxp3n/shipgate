@@ -1,0 +1,14 @@
+id: analytics
+capability: analytics
+version: 2.0.0
+documents:
+- REQUIREMENTS.md
+schemas: []
+validators:
+- validate_data_protection
+testing:
+- TESTING.yaml
+audit_rules:
+- AUDIT-RULES.yaml
+work_package_rules:
+- WORK-PACKAGE-RULES.md

@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://apfw.local/schemas/project-state.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["current", "previous", "allowed_next", "gates"],
+  "properties": {
+    "current": {
+      "type": "string",
+      "enum": [
+        "RAW_INPUT",
+        "INTAKE_COMPLETE",
+        "SOURCE_NORMALIZED",
+        "CORE_SPEC_FROZEN",
+        "MACHINE_CONTRACTS_READY",
+        "AGENT_SPEC_READY",
+        "WORK_PACKAGES_READY",
+        "SENIOR_AUDITED",
+        "CORRECTIVE_COMPLETE",
+        "BUILD_READY",
+        "FINAL_RELEASE"
+      ]
+    },
+    "previous": {
+      "anyOf": [
+        {"type": "null"},
+        {
+          "type": "string",
+          "enum": [
+            "RAW_INPUT",
+            "INTAKE_COMPLETE",
+            "SOURCE_NORMALIZED",
+            "CORE_SPEC_FROZEN",
+            "MACHINE_CONTRACTS_READY",
+            "AGENT_SPEC_READY",
+            "WORK_PACKAGES_READY",
+            "SENIOR_AUDITED",
+            "CORRECTIVE_COMPLETE",
+            "BUILD_READY",
+            "FINAL_RELEASE"
+          ]
+        }
+      ]
+    },
+    "allowed_next": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "RAW_INPUT",
+          "INTAKE_COMPLETE",
+          "SOURCE_NORMALIZED",
+          "CORE_SPEC_FROZEN",
+          "MACHINE_CONTRACTS_READY",
+          "AGENT_SPEC_READY",
+          "WORK_PACKAGES_READY",
+          "SENIOR_AUDITED",
+          "CORRECTIVE_COMPLETE",
+          "BUILD_READY",
+          "FINAL_RELEASE"
+        ]
+      }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": {
+        "type": ["boolean", "integer", "number", "string", "null"]
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+conflicts:
+  - id: CONFLICT-TN-001
+    subject: invitation_expiry
+    claims:
+      - source: product-notes.md#Core behavior
+        statement: Invitation links expire after 24 hours.
+      - source: api-notes.md#Invitation API draft
+        statement: Invitation tokens expire after 48 hours.
+    status: resolved
+    resolution_ref: DR-TN-001

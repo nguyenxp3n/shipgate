@@ -1,0 +1,6 @@
+dispositions:
+  - finding_id: DOC-TN-001
+    disposition: FIXED
+    resolution_refs: [expected-core-spec/decisions/DR-TN-001.yaml, expected-core-spec/PRODUCT-SPEC.md]
+    verification_refs: [tests/examples/test_teamnotes_intake.py, tests/examples/test_teamnotes_pipeline.py]
+    rationale: The 24-hour decision is explicit and canonical.

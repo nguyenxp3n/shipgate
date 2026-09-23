@@ -1,0 +1,11 @@
+openapi: 3.0.3
+info: {title: Test API, version: 1.0.0}
+paths:
+  /items:
+    get:
+      operationId: listItems
+      x-auth-required: true
+      x-idempotency: none
+      x-error-codes: [RESOURCE_NOT_FOUND]
+      responses:
+        '200': {description: ok}

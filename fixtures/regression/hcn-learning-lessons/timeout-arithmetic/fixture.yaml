@@ -1,0 +1,8 @@
+kind: timeout-budget
+expected_codes: [FEASIBILITY_TIMEOUT_BUDGET_EXCEEDED]
+resource_budget:
+  compile_seconds: 10
+  case_count: 20
+  per_case_seconds: 3
+  setup_seconds: 2
+  overall_seconds: 45

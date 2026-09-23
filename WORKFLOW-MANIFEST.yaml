@@ -1,0 +1,38 @@
+workflow:
+  name: shipgate
+  version: 2.0.0
+  status: active
+core:
+  version: 2.0.0
+profiles:
+  web-saas: 2.0.0
+adapters:
+  generic: 2.0.0
+  codex: 2.0.0
+  claude-code: 2.0.0
+  gemini-antigravity: 2.0.0
+runtime:
+  python: '>=3.12,<3.13'
+schemas_version: 2.0.0
+release:
+  reproducible: true
+  archive: shipgate.zip
+  sidecar: shipgate.zip.sha256
+  qa_reports:
+  - QA-CORE-ARCHITECTURE.md
+  - QA-WEB-SAAS-PROFILE.md
+  - QA-VALIDATORS.md
+  - QA-AGENT-ROLE-CONTRACTS.md
+  - QA-EXAMPLE-PROJECT.md
+  - QA-RELEASE-INTEGRITY.md
+  - QA-BUILD-READINESS.md
+normative_artifacts:
+- docs/superpowers/specs/shipgate-architecture-spec.md
+- docs/superpowers/plans/shipgate-master-plan.md
+- core/authority/AUTHORITY-MATRIX.yaml
+- core/agent-governance/CONTROLLED-AUTONOMY.md
+- core/work-packages/WP-COMPILER-RULES.md
+- core/audit/SENIOR-AUDIT-RUBRIC.md
+- core/release/BUILD-READINESS.md
+- profiles/web-saas/PROFILE-MANIFEST.yaml
+- prompts/ROLE-REGISTRY.yaml

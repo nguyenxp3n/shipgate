@@ -1,0 +1,49 @@
+requirements:
+  - id: REQ-TN-001
+    source: {path: product-notes.md, location: "Purpose"}
+    statement: TeamNotes is a multi-tenant team note-sharing web SaaS.
+    classification: product_behavior
+    confidence: explicit
+    status: resolved
+  - id: REQ-TN-002
+    source: {path: product-notes.md, location: "Core behavior"}
+    statement: Application data requires authentication.
+    classification: security_behavior
+    confidence: explicit
+    status: resolved
+  - id: REQ-TN-003
+    source: {path: product-notes.md, location: "Core behavior"}
+    statement: Notes are organization-scoped and sharing outside the organization is forbidden.
+    classification: business_rule
+    confidence: explicit
+    status: resolved
+  - id: REQ-TN-004
+    source: {path: api-notes.md, location: "Public API expectations"}
+    statement: The public JSON API is rooted at /api/v1 and uses canonical errors.
+    classification: api_semantics
+    confidence: explicit
+    status: resolved
+  - id: REQ-TN-005
+    source: {path: data-notes.md, location: "Authoritative persistence"}
+    statement: PostgreSQL is authoritative and modules do not directly mutate foreign-owned tables.
+    classification: data_architecture
+    confidence: explicit
+    status: resolved
+  - id: REQ-TN-006
+    source: {path: data-notes.md, location: "Core records"}
+    statement: Notification delivery uses transactional outbox and idempotent consumption.
+    classification: async_semantics
+    confidence: explicit
+    status: resolved
+  - id: REQ-TN-007
+    source: {path: security-notes.md, location: "security list"}
+    statement: Backend authorization enforces tenant scope and credentialed browser mutations use CSRF defense.
+    classification: security_invariant
+    confidence: explicit
+    status: resolved
+  - id: REQ-TN-008
+    source: {path: operations-notes.md, location: "operations list"}
+    statement: Liveness, readiness, structured logging, backup, and restore verification are required.
+    classification: operations
+    confidence: explicit
+    status: resolved

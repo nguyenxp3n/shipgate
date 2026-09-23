@@ -1,0 +1,5 @@
+extension: realtime
+required_test_classes:
+- unauthorized channel
+- reconnect/replay
+- backpressure

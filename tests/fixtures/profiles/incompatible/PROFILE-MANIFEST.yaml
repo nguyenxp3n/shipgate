@@ -1,0 +1,7 @@
+profile:
+  id: incompatible
+  version: 1.0.0
+  workflow_core_compatibility: ">=3.0,<4.0"
+required_capabilities: []
+optional_capabilities: []
+validators: []

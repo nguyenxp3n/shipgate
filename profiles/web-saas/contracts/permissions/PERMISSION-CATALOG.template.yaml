@@ -1,0 +1,9 @@
+permissions:
+- id: permission.example
+  scope: resource
+  authoritative_enforcement: backend
+  description: Replace with project-resolved permission.
+roles:
+- id: role.example
+  permissions:
+  - permission.example

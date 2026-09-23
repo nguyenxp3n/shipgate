@@ -1,0 +1,8 @@
+- id: CTR-001
+  category: CONTRADICTION
+  severity: CRITICAL
+  status: OPEN
+  affected_artifacts: [a.md]
+  evidence: [conflict]
+  risk: wrong implementation
+  recommendation: resolve

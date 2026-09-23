@@ -1,0 +1,35 @@
+core:
+  name: generic-core
+  version: 2.0.0
+  status: active
+  categories:
+    lifecycle:
+      path: core/lifecycle
+    authority:
+      path: core/authority
+    intake:
+      path: core/intake
+    specification:
+      path: core/specification
+    governance:
+      path: core/governance
+    agent_governance:
+      path: core/agent-governance
+    decomposition:
+      path: core/decomposition
+    contracts:
+      path: core/contracts
+    testing:
+      path: core/testing
+    work_packages:
+      path: core/work-packages
+    audit:
+      path: core/audit
+    release:
+      path: core/release
+  principles:
+    - typed_authority
+    - unknown_is_not_permission_to_invent
+    - deterministic_checks_before_llm_assertion
+    - derived_artifact_traceability
+    - progressive_disclosure

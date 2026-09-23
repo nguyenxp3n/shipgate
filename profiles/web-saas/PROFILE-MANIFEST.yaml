@@ -1,0 +1,36 @@
+profile:
+  id: web-saas
+  version: 2.0.0
+  workflow_core_compatibility: ">=2.0,<3.0"
+required_capabilities:
+  - frontend
+  - api
+  - auth
+  - authorization
+  - database
+  - observability
+optional_capabilities:
+  - organizations
+  - cache
+  - jobs
+  - events
+  - files
+  - email
+  - notifications
+  - admin
+  - search
+  - analytics
+  - payments
+  - ai_integration
+  - realtime
+  - pwa
+  - webhooks
+validators:
+  - validate_web_saas_profile
+  - validate_auth
+  - validate_browser_security
+  - validate_permissions
+  - validate_database
+  - validate_async_contracts
+  - validate_operations
+  - validate_test_matrix

@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://apfw.local/schemas/audit-disposition.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "finding_id",
+    "disposition",
+    "reason",
+    "resolution_refs",
+    "verification_refs"
+  ],
+  "properties": {
+    "finding_id": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_-]{1,63}$"
+    },
+    "disposition": {
+      "type": "string",
+      "enum": [
+        "FIXED",
+        "ALREADY_FIXED",
+        "DEFERRED",
+        "NOT_APPLICABLE",
+        "REJECTED"
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "resolution_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "verification_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "disposition": {
+            "enum": [
+              "FIXED",
+              "ALREADY_FIXED"
+            ]
+          }
+        },
+        "required": [
+          "disposition"
+        ]
+      },
+      "then": {
+        "properties": {
+          "resolution_refs": {
+            "minItems": 1
+          },
+          "verification_refs": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

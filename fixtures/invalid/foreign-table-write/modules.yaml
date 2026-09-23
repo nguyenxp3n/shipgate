@@ -1,0 +1,3 @@
+modules:
+  - {id: users, owned_data: [users], writes: [users], must_not_write: [], dependencies: []}
+  - {id: billing, owned_data: [invoices], writes: [invoices, users], must_not_write: [], dependencies: [users]}

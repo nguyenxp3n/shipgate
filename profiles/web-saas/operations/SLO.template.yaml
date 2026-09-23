@@ -1,0 +1,6 @@
+slos:
+- id: availability
+  indicator: project-resolved
+  target: project-resolved
+  window: project-resolved
+  alert_policy: project-resolved

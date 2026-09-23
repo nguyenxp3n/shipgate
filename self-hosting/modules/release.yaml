@@ -1,0 +1,9 @@
+id: release
+owned_data: &id001
+- release_manifests
+- release_archives
+must_not_write: []
+writes: *id001
+dependencies:
+- validators
+- cli

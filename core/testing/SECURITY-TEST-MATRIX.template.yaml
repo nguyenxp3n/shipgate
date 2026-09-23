@@ -1,0 +1,7 @@
+surfaces:
+  - id: SECURITY-SURFACE-EXAMPLE
+    applicability: project-resolved
+    evidence: []
+    tests:
+      - negative
+      - authorization

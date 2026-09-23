@@ -1,0 +1,14 @@
+configuration:
+- name: DATABASE_URL
+  type: secret_string
+  required: true
+  environments:
+  - development
+  - staging
+  - production
+  owner: project-resolved
+- name: HTTP_PORT
+  type: integer
+  required: false
+  default_source: project-resolved
+  owner: runtime

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://apfw.local/schemas/readiness-report.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "documentation_complete",
+    "authority_resolved",
+    "machine_contracts_valid",
+    "wp_entrypoint_exists",
+    "unresolved_protected_decisions",
+    "critical_blockers",
+    "high_blockers",
+    "verdict"
+  ],
+  "properties": {
+    "documentation_complete": {
+      "type": "boolean"
+    },
+    "authority_resolved": {
+      "type": "boolean"
+    },
+    "machine_contracts_valid": {
+      "type": "boolean"
+    },
+    "wp_entrypoint_exists": {
+      "type": "boolean"
+    },
+    "unresolved_protected_decisions": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "critical_blockers": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "high_blockers": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "PASS",
+        "FAIL"
+      ]
+    }
+  }
+}

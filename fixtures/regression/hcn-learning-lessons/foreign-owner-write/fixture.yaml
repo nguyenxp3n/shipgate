@@ -1,0 +1,5 @@
+kind: foreign-owner-write
+expected_codes: [OWN_FOREIGN_WRITE]
+modules:
+  - {id: accounts, owned_data: [accounts], writes: [accounts], must_not_write: [], dependencies: []}
+  - {id: rewards, owned_data: [reward_ledger], writes: [reward_ledger, accounts], must_not_write: [], dependencies: [accounts]}

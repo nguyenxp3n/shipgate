@@ -1,0 +1,7 @@
+contracts:
+  - id: CONTRACT-EXAMPLE
+    authority: project-resolved
+    consumers: []
+    tests:
+      - schema
+      - compatibility

@@ -1,0 +1,5 @@
+extension: pwa
+required_test_classes:
+- private cache
+- upgrade
+- logout cleanup

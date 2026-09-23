@@ -1,0 +1,7 @@
+checks:
+- startup config
+- liveness
+- readiness
+- migration compatibility
+- critical API smoke
+- worker health when enabled

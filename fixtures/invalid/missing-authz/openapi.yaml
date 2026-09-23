@@ -1,0 +1,8 @@
+openapi: 3.0.3
+info: {title: Invalid API, version: 1.0.0}
+paths:
+  /private:
+    get:
+      operationId: privateGet
+      x-idempotency: none
+      responses: {'200': {description: OK}}

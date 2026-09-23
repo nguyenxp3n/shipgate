@@ -1,0 +1,10 @@
+id: organizations
+scope: Tenant/organization membership
+authority: Organization module and tenancy contract
+required_decisions:
+- tenant strategy
+- membership roles
+- isolation enforcement
+- deletion/export semantics
+requires_failure_contract: true
+requires_tests: true

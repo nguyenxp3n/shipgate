@@ -1,0 +1,3 @@
+additions:
+  - {kind: endpoint, id: deleteEverything, requirement_ref: null}
+writes: [contracts/openapi/openapi.yaml]

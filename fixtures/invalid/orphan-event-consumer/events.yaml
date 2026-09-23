@@ -1,0 +1,3 @@
+schemas: [user.created.v1]
+consumers:
+  - {module: analytics, event: user.deleted.v1}

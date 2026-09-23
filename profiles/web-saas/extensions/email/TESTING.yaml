@@ -1,0 +1,5 @@
+extension: email
+required_test_classes:
+- provider outage
+- duplicate intent
+- security token expiry

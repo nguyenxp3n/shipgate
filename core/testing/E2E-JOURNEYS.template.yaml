@@ -1,0 +1,6 @@
+journeys:
+  - id: JOURNEY-EXAMPLE
+    criticality: project-resolved
+    preconditions: []
+    steps: []
+    assertions: []

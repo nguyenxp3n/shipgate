@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://apfw.local/schemas/artifact.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_id",
+    "path",
+    "depends_on",
+    "built_from_hashes",
+    "generated"
+  ],
+  "properties": {
+    "artifact_id": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_-]{1,63}$"
+    },
+    "path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "depends_on": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z][A-Z0-9_-]{1,63}$"
+      },
+      "uniqueItems": true
+    },
+    "built_from_hashes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[a-f0-9]{64}$"
+      }
+    },
+    "generated": {
+      "type": "boolean"
+    }
+  }
+}

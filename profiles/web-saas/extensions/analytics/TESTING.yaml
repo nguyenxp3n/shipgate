@@ -1,0 +1,5 @@
+extension: analytics
+required_test_classes:
+- PII minimization
+- retention
+- delete propagation

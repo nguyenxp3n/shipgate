@@ -1,0 +1,5 @@
+extension: search
+rules:
+- Confirm index drift has explicit semantics and evidence.
+- Confirm reindex has explicit semantics and evidence.
+- Confirm delete propagation has explicit semantics and evidence.

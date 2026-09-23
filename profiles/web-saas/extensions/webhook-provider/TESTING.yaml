@@ -1,0 +1,5 @@
+extension: webhook-provider
+required_test_classes:
+- spoofing
+- replay
+- duplicate/out-of-order

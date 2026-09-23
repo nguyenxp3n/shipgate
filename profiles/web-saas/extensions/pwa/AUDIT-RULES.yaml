@@ -1,0 +1,5 @@
+extension: pwa
+rules:
+- Confirm private cache has explicit semantics and evidence.
+- Confirm upgrade has explicit semantics and evidence.
+- Confirm logout cleanup has explicit semantics and evidence.

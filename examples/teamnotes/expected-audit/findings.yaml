@@ -1,0 +1,9 @@
+findings:
+  - id: DOC-TN-001
+    category: CONSISTENCY
+    severity: MEDIUM
+    status: CLOSED
+    affected_artifacts: [expected-core-spec/PRODUCT-SPEC.md, expected-contracts/openapi.yaml]
+    evidence: Invitation expiry conflict required explicit canonical resolution.
+    risk: Agents could implement inconsistent token lifetimes.
+    recommendation: Record a protected decision and align canonical artifacts.

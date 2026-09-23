@@ -1,0 +1,11 @@
+id: cache
+scope: Derived performance cache
+authority: Authoritative source remains elsewhere
+required_decisions:
+- key format
+- TTL
+- invalidation
+- failure behavior
+- privacy/staleness tolerance
+requires_failure_contract: true
+requires_tests: true

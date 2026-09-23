@@ -1,0 +1,6 @@
+checks:
+- OpenAPI parses
+- operationId unique
+- error catalog references
+- auth/authz explicit
+- idempotency explicit for retryable mutation

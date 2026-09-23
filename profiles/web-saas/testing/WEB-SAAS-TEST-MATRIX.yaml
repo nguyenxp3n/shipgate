@@ -1,0 +1,25 @@
+capabilities:
+  auth:
+    unit:
+    - validation
+    integration:
+    - session lifecycle
+    security:
+    - abuse/replay
+    e2e:
+    - register/login/logout
+  authorization:
+    integration:
+    - permission matrix
+    - resource scope
+    security:
+    - bypass
+    - tenant isolation
+  database:
+    integration:
+    - migrate empty
+    - upgrade path
+    - constraints
+  api:
+    contract:
+    - OpenAPI request/response/error semantics

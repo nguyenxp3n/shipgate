@@ -1,0 +1,8 @@
+id: admin
+owned_data: &id001
+- admin_actions
+must_not_write: []
+writes: *id001
+dependencies:
+- organizations
+- audit

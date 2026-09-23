@@ -1,0 +1,5 @@
+extension: payments
+rules:
+- Confirm signature/replay has explicit semantics and evidence.
+- Confirm duplicate/out-of-order webhook has explicit semantics and evidence.
+- Confirm reconciliation has explicit semantics and evidence.

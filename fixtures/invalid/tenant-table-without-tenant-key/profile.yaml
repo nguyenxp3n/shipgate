@@ -1,0 +1,6 @@
+capabilities: {multi_tenant: optional_enabled}
+database:
+  ownership_resolved: true
+  entities:
+    - {id: notes, tenant_owned: true, enforcement: application}
+test_matrix: {security: [tenant_isolation]}

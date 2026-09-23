@@ -1,0 +1,7 @@
+invariants:
+  - id: INV-EXAMPLE
+    owner: project-resolved
+    description: Replace with a load-bearing project invariant.
+    active_from_wp: WP-000
+    required_tests:
+      - integration

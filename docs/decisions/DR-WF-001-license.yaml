@@ -1,0 +1,17 @@
+id: DR-WF-001
+subject: repository_license
+question: Choose the license for ai-project-finalization-workflow-v2.0.0.
+status: RESOLVED
+options:
+  - id: A
+    label: MIT
+  - id: B
+    label: Apache-2.0
+  - id: C
+    label: Proprietary / All Rights Reserved
+resolution:
+  choice: C
+  original_text: C. Proprietary / All Rights Reserved
+  resolved_at: 2026-09-20T12:18:00Z
+evidence:
+  - Human partner explicitly selected option C in the project conversation on 2026-09-20.

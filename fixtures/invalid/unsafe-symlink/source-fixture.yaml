@@ -1,0 +1,4 @@
+files:
+  target.txt: "x\n"
+symlinks:
+  link.txt: target.txt

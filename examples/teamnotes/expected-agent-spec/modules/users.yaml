@@ -1,0 +1,7 @@
+id: users
+owned_data: &id001
+- user_profiles
+must_not_write: []
+writes: *id001
+dependencies:
+- auth

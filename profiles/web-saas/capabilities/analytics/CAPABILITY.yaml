@@ -1,0 +1,10 @@
+id: analytics
+scope: Derived analytics telemetry
+authority: Business source remains authority
+required_decisions:
+- event/data minimization
+- PII handling
+- sampling/retention
+- delivery failure behavior
+requires_failure_contract: true
+requires_tests: true

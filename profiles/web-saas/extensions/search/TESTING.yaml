@@ -1,0 +1,5 @@
+extension: search
+required_test_classes:
+- index drift
+- reindex
+- delete propagation

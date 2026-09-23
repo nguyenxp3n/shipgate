@@ -1,0 +1,14 @@
+id: background-processing
+capability: jobs
+version: 2.0.0
+documents:
+- REQUIREMENTS.md
+schemas: []
+validators:
+- validate_async_contracts
+testing:
+- TESTING.yaml
+audit_rules:
+- AUDIT-RULES.yaml
+work_package_rules:
+- WORK-PACKAGE-RULES.md

@@ -1,0 +1,5 @@
+extension: analytics
+rules:
+- Confirm PII minimization has explicit semantics and evidence.
+- Confirm retention has explicit semantics and evidence.
+- Confirm delete propagation has explicit semantics and evidence.

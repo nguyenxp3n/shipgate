@@ -1,0 +1,5 @@
+extension: file-storage
+rules:
+- Confirm invalid content has explicit semantics and evidence.
+- Confirm authorization has explicit semantics and evidence.
+- Confirm orphan cleanup has explicit semantics and evidence.

@@ -1,0 +1,7 @@
+checks:
+- migrations from empty
+- upgrade path
+- constraints
+- transaction boundaries
+- retention jobs when enabled
+- outbox/inbox when enabled

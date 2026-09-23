@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://apfw.local/schemas/project.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "project"
+  ],
+  "properties": {
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "profile",
+        "profile_version",
+        "workflow_version",
+        "core_version",
+        "input_root",
+        "capability_resolution"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "profile": {
+          "type": "string",
+          "minLength": 1
+        },
+        "profile_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "workflow_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "core_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "input_root": {
+          "type": "string",
+          "minLength": 1
+        },
+        "capability_resolution": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

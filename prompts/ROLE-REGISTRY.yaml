@@ -1,0 +1,221 @@
+version: 2.0.0
+roles:
+- id: controller
+  read:
+  - .workflow/**
+  - docs/**
+  - contracts/**
+  write:
+  - .workflow/**
+  forbidden:
+  - docs/core/**
+  - contracts/**
+  required_inputs: []
+  output_contract: prompts/controller/OUTPUT-CONTRACT.md
+  fresh_context_preferred: false
+  canonical_writes_allowed: false
+  include_historical: false
+- id: discovery
+  read:
+  - '**'
+  write:
+  - workspace/intake/**
+  - .workflow/phase-outputs/discovery/**
+  forbidden:
+  - docs/core/**
+  - contracts/**
+  - docs/agent-spec/**
+  required_inputs: []
+  output_contract: prompts/discovery/OUTPUT-CONTRACT.md
+  fresh_context_preferred: false
+  canonical_writes_allowed: false
+  include_historical: false
+- id: normalization
+  read:
+  - workspace/intake/**
+  - .workflow/phase-outputs/discovery/**
+  write:
+  - workspace/normalized/**
+  - .workflow/phase-outputs/normalization/**
+  forbidden:
+  - docs/core/**
+  - contracts/**
+  required_inputs: []
+  output_contract: prompts/normalization/OUTPUT-CONTRACT.md
+  fresh_context_preferred: false
+  canonical_writes_allowed: false
+  include_historical: false
+- id: product-architect
+  read:
+  - workspace/**
+  - decisions/resolved/**
+  - docs/decisions/**
+  write:
+  - docs/core/product/**
+  - docs/core/domain/**
+  - .workflow/phase-outputs/spec/**
+  forbidden:
+  - contracts/**
+  - infra/**
+  required_inputs: []
+  output_contract: prompts/product-architect/OUTPUT-CONTRACT.md
+  fresh_context_preferred: false
+  canonical_writes_allowed: true
+  include_historical: false
+- id: technical-architect
+  read:
+  - docs/core/product/**
+  - docs/core/domain/**
+  - decisions/resolved/**
+  - profiles/**
+  write:
+  - docs/core/architecture/**
+  - docs/core/data/**
+  - docs/core/security/**
+  - docs/core/deployment/**
+  - .workflow/phase-outputs/architecture/**
+  forbidden:
+  - docs/core/product/**
+  - docs/core/domain/**
+  required_inputs: []
+  output_contract: prompts/technical-architect/OUTPUT-CONTRACT.md
+  fresh_context_preferred: false
+  canonical_writes_allowed: true
+  include_historical: false
+- id: contract-compiler
+  read:
+  - docs/core/**
+  - schemas/**
+  - profiles/**
+  write:
+  - contracts/**
+  - schemas/project/**
+  - .workflow/phase-outputs/contracts/**
+  forbidden:
+  - docs/core/product/**
+  required_inputs: []
+  output_contract: prompts/contract-compiler/OUTPUT-CONTRACT.md
+  fresh_context_preferred: false
+  canonical_writes_allowed: true
+  include_historical: false
+- id: security-reviewer
+  read:
+  - docs/core/**
+  - contracts/**
+  - profiles/**
+  write:
+  - workspace/reviews/security-data-review.yaml
+  forbidden:
+  - docs/core/**
+  - contracts/**
+  required_inputs: []
+  output_contract: prompts/security-reviewer/OUTPUT-CONTRACT.md
+  fresh_context_preferred: false
+  canonical_writes_allowed: false
+  include_historical: false
+- id: agent-spec-compiler
+  read:
+  - docs/core/**
+  - contracts/**
+  - profiles/**
+  - workspace/reviews/**
+  write:
+  - docs/agent-spec/**
+  - .workflow/phase-outputs/agent-spec/**
+  forbidden:
+  - docs/core/**
+  - contracts/**
+  required_inputs: []
+  output_contract: prompts/agent-spec-compiler/OUTPUT-CONTRACT.md
+  fresh_context_preferred: false
+  canonical_writes_allowed: true
+  include_historical: false
+- id: wp-compiler
+  read:
+  - docs/core/**
+  - docs/agent-spec/**
+  - contracts/**
+  - profiles/**
+  write:
+  - docs/agent-spec/work-packages/**
+  - .workflow/phase-outputs/wp/**
+  forbidden:
+  - docs/core/**
+  - contracts/**
+  - docs/audits/historical/**
+  required_inputs: []
+  output_contract: prompts/wp-compiler/OUTPUT-CONTRACT.md
+  fresh_context_preferred: false
+  canonical_writes_allowed: true
+  include_historical: false
+- id: senior-auditor
+  read:
+  - docs/**
+  - contracts/**
+  - schemas/**
+  - profiles/**
+  - .workflow/**
+  write:
+  - docs/audits/**
+  forbidden:
+  - docs/core/**
+  - contracts/**
+  - schemas/project/**
+  - docs/agent-spec/**
+  required_inputs: []
+  output_contract: prompts/senior-auditor/OUTPUT-CONTRACT.md
+  fresh_context_preferred: true
+  canonical_writes_allowed: false
+  include_historical: true
+- id: corrective-agent
+  read:
+  - docs/audits/**
+  - docs/core/**
+  - contracts/**
+  - docs/agent-spec/**
+  - decisions/resolved/**
+  write:
+  - docs/core/**
+  - contracts/**
+  - docs/agent-spec/**
+  - docs/audits/dispositions.yaml
+  - changes/**
+  forbidden:
+  - docs/audits/historical/**
+  required_inputs: []
+  output_contract: prompts/corrective-agent/OUTPUT-CONTRACT.md
+  fresh_context_preferred: false
+  canonical_writes_allowed: true
+  include_historical: false
+- id: readiness-reviewer
+  read:
+  - docs/core/**
+  - docs/agent-spec/**
+  - contracts/**
+  - schemas/project/**
+  - .workflow/readiness-report.yaml
+  write:
+  - docs/audits/QA-BUILD-READINESS.md
+  forbidden:
+  - docs/core/**
+  - contracts/**
+  - docs/agent-spec/**
+  required_inputs: []
+  output_contract: prompts/readiness-reviewer/OUTPUT-CONTRACT.md
+  fresh_context_preferred: true
+  canonical_writes_allowed: false
+  include_historical: false
+- id: release-reviewer
+  read:
+  - '**'
+  write:
+  - docs/audits/QA-RELEASE-INTEGRITY.md
+  forbidden:
+  - docs/core/**
+  - contracts/**
+  - docs/agent-spec/**
+  required_inputs: []
+  output_contract: prompts/release-reviewer/OUTPUT-CONTRACT.md
+  fresh_context_preferred: true
+  canonical_writes_allowed: false
+  include_historical: false

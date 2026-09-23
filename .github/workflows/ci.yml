@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: astral-sh/setup-uv@v6
+      - uses: arduino/setup-task@v2
+      - name: Setup
+        run: task setup
+      - name: Format
+        run: task format:check
+      - name: Lint
+        run: task lint
+      - name: Typecheck
+        run: task typecheck
+      - name: Tests
+        run: task test
+      - name: Fixture evidence
+        run: task test:fixtures
+      - name: Release evidence
+        run: task test:release
+      - name: Release preflight
+        run: task release:dry-run

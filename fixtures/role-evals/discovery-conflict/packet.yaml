@@ -1,0 +1,2 @@
+conflicts: [{id: CONFLICT-1, claims: [A, B]}]
+protected_decisions: []

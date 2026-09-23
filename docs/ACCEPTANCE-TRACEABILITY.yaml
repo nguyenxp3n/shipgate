@@ -1,0 +1,96 @@
+acceptance:
+  - id: LIFECYCLE
+    evidence:
+      - tests/unit/test_state.py
+      - tests/integration/test_phase_commands.py
+    report: QA-CORE-ARCHITECTURE.md
+  - id: AUTHORITY
+    evidence:
+      - tests/unit/test_authority.py
+      - tests/unit/validators/test_authority_validator.py
+    report: QA-VALIDATORS.md
+  - id: PROVENANCE
+    evidence:
+      - tests/unit/test_intake.py
+      - tests/unit/test_artifacts.py
+    report: QA-CORE-ARCHITECTURE.md
+  - id: CONTROLLED_AUTONOMY
+    evidence:
+      - tests/unit/test_decisions.py
+      - tests/agents/test_role_evals.py
+    report: QA-AGENT-ROLE-CONTRACTS.md
+  - id: MODULE_OWNERSHIP
+    evidence:
+      - tests/unit/test_modules.py
+      - tests/unit/validators/test_ownership_validator.py
+    report: QA-VALIDATORS.md
+  - id: CROSS_MODULE_CONTRACTS
+    evidence:
+      - tests/unit/test_modules.py
+      - tests/fixtures/test_hcn_regression_lessons.py
+    report: QA-CORE-ARCHITECTURE.md
+  - id: MACHINE_CONTRACTS
+    evidence:
+      - tests/schema/test_base_schemas.py
+      - tests/unit/validators/test_api_validator.py
+    report: QA-VALIDATORS.md
+  - id: TESTING
+    evidence:
+      - tests/unit/test_work_packages.py
+      - tests/examples/test_teamnotes_pipeline.py
+    report: QA-VALIDATORS.md
+  - id: WORK_PACKAGES
+    evidence:
+      - tests/unit/test_work_packages.py
+      - tests/unit/validators/test_work_package_validator.py
+    report: QA-VALIDATORS.md
+  - id: AUDIT
+    evidence:
+      - tests/unit/test_audit.py
+      - tests/fixtures/test_invalid_projects.py
+    report: QA-VALIDATORS.md
+  - id: STALENESS
+    evidence:
+      - tests/integration/test_staleness.py
+      - tests/unit/test_artifacts.py
+    report: QA-CORE-ARCHITECTURE.md
+  - id: SECURITY_PROFILE
+    evidence:
+      - tests/profile/test_web_saas_static_content.py
+      - tests/fixtures/test_invalid_projects.py
+    report: QA-WEB-SAAS-PROFILE.md
+  - id: WEB_SAAS_EXTENSIONS
+    evidence:
+      - tests/profile/test_extension_inventory.py
+      - tests/unit/web_saas/test_extensions.py
+    report: QA-WEB-SAAS-PROFILE.md
+  - id: ADAPTERS
+    evidence:
+      - tests/unit/generators/test_adapters.py
+      - tests/unit/validators/test_adapters.py
+    report: QA-AGENT-ROLE-CONTRACTS.md
+  - id: REVIEW_ASSURANCE
+    evidence:
+      - tests/release/test_assurance_disclosure.py
+      - tests/release/test_qa_evidence.py
+    report: QA-BUILD-READINESS.md
+  - id: RELEASE
+    evidence:
+      - tests/release/test_release_archive.py
+      - tests/release/test_release_security.py
+      - tests/integration/test_release_command.py
+    report: QA-RELEASE-INTEGRITY.md
+  - id: EXAMPLE
+    evidence:
+      - tests/examples/test_teamnotes_intake.py
+      - tests/examples/test_teamnotes_pipeline.py
+    report: QA-EXAMPLE-PROJECT.md
+  - id: NEGATIVE_FIXTURES
+    evidence:
+      - tests/fixtures/test_invalid_projects.py
+      - tests/fixtures/test_hcn_regression_lessons.py
+    report: QA-EXAMPLE-PROJECT.md
+  - id: SELF_HOSTING
+    evidence:
+      - tests/self_hosting/test_self_hosting.py
+    report: QA-BUILD-READINESS.md

@@ -1,0 +1,14 @@
+project: TeamNotes
+profile: web-saas
+version: 1.0.0
+state: BUILD_READY
+entrypoint: expected-work-packages/WP-000.md
+normative:
+  - expected-core-spec/PRODUCT-SPEC.md
+  - expected-core-spec/DOMAIN-MODEL.md
+  - expected-core-spec/TECHNICAL-SPEC.md
+  - expected-core-spec/DATA-MODEL.md
+  - expected-core-spec/SECURITY.md
+  - expected-core-spec/DEPLOYMENT.md
+  - expected-agent-spec/AUTHORITY-MATRIX.yaml
+  - expected-contracts/openapi.yaml

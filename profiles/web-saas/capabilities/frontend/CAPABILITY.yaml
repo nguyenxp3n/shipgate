@@ -1,0 +1,11 @@
+id: frontend
+scope: Browser UI
+authority: API contracts and backend authorization
+required_decisions:
+- rendering/routing model
+- state boundaries
+- screen state matrix
+- accessibility
+- private cache/offline policy
+requires_failure_contract: true
+requires_tests: true

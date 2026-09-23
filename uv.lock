@@ -1,0 +1,40 @@
+version = 1
+revision = 3
+requires-python = ">=3.12, <3.13"
+
+[[package]]
+name = "ai-project-finalization-workflow"
+version = "2.0.0"
+source = { editable = "." }
+dependencies = [
+    { name = "jsonschema" },
+    { name = "openapi-spec-validator" },
+    { name = "packaging" },
+    { name = "pyyaml" },
+]
+
+[package.optional-dependencies]
+dev = [
+    { name = "mypy" },
+    { name = "pytest" },
+    { name = "pytest-cov" },
+    { name = "ruff" },
+    { name = "types-pyyaml" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "jsonschema", specifier = ">=4.23,<5" },
+    { name = "openapi-spec-validator", specifier = ">=0.7.1,<0.8" },
+    { name = "packaging", specifier = ">=24.1,<25" },
+    { name = "pyyaml", specifier = ">=6.0.2,<7" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "mypy", specifier = ">=1.11,<2" },
+    { name = "pytest", specifier = ">=8.3,<9" },
+    { name = "pytest-cov", specifier = ">=5,<7" },
+    { name = "ruff", specifier = ">=0.6,<1" },
+    { name = "types-pyyaml", specifier = ">=6.0.12,<7" },
+]

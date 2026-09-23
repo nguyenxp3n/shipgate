@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling>=1.25,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "shipgate"
+version = "2.0.0"
+description = "ShipGate — Compile heterogeneous project materials into auditable coding-agent-ready specification packages."
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "PyYAML>=6.0.2,<7",
+  "jsonschema>=4.23,<5",
+  "packaging>=24.1,<25",
+  "openapi-spec-validator>=0.7.1,<0.8",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3,<9",
+  "pytest-cov>=5,<7",
+  "ruff>=0.6,<1",
+  "mypy>=1.11,<2",
+  "types-PyYAML>=6.0.12,<7",
+]
+
+[project.scripts]
+shipgate = "project_finalizer.cli:entrypoint"
+workflow = "project_finalizer.cli:entrypoint"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/project_finalizer"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+packages = ["project_finalizer"]

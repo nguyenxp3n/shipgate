@@ -1,0 +1,33 @@
+version: '3'
+
+tasks:
+  setup:
+    cmds: ["uv sync --all-extras"]
+  format:
+    cmds: ["uv run ruff format ."]
+  format:check:
+    cmds: ["uv run ruff format --check ."]
+  lint:
+    cmds: ["uv run ruff check ."]
+  typecheck:
+    cmds: ["uv run mypy src"]
+  test:
+    cmds: ["uv run pytest"]
+  test:unit:
+    cmds: ["uv run pytest tests/unit"]
+  test:integration:
+    cmds: ["uv run pytest tests/integration"]
+  test:fixtures:
+    cmds: ["uv run pytest tests/fixtures"]
+  test:release:
+    cmds: ["uv run pytest tests/release"]
+  qa:
+    cmds:
+      - task: format:check
+      - task: lint
+      - task: typecheck
+      - task: test
+  release:dry-run:
+    cmds: ["uv run shipgate validate"]
+  release:
+    cmds: ["uv run shipgate release"]

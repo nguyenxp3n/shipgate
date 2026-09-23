@@ -1,0 +1,5 @@
+extension: payments
+required_test_classes:
+- signature/replay
+- duplicate/out-of-order webhook
+- reconciliation

@@ -1,0 +1,12 @@
+artifacts:
+  - artifact_id: API_SEMANTICS
+    path: API-SEMANTICS.md
+    depends_on: []
+    built_from_hashes: {}
+    generated: false
+  - artifact_id: OPENAPI
+    path: openapi.yaml
+    depends_on: [API_SEMANTICS]
+    built_from_hashes: {API_SEMANTICS: old-hash}
+    generated: true
+current_hashes: {API_SEMANTICS: new-hash}

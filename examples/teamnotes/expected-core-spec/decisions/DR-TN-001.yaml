@@ -1,0 +1,10 @@
+id: DR-TN-001
+title: Invitation token lifetime
+status: resolved
+level: protected
+subject: invitation_expiry
+selected: 24h
+rationale: Product behavior is the approved authority; shorter lifetime also narrows token exposure.
+sources:
+  - product-notes.md#Core behavior
+  - api-notes.md#Invitation API draft

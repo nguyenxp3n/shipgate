@@ -1,0 +1,10 @@
+id: email
+scope: Email delivery
+authority: Notification intent is separate from provider delivery
+required_decisions:
+- template ownership
+- provider/failure behavior
+- critical token semantics
+- rate/abuse controls
+requires_failure_contract: true
+requires_tests: true

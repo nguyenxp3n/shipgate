@@ -1,0 +1,5 @@
+extension: email
+rules:
+- Confirm provider outage has explicit semantics and evidence.
+- Confirm duplicate intent has explicit semantics and evidence.
+- Confirm security token expiry has explicit semantics and evidence.

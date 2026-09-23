@@ -1,0 +1,10 @@
+openapi: 3.0.3
+info: {title: Test API, version: 1.0.0}
+paths:
+  /items:
+    post:
+      operationId: createItem
+      x-auth-required: true
+      x-idempotency: required
+      x-error-codes: [UNKNOWN_ERROR]
+      responses: {'201': {description: created}}

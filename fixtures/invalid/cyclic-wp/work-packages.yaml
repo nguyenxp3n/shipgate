@@ -1,0 +1,4 @@
+work_packages:
+  - {id: WP-000, title: Bootstrap, state: READY, purpose: bootstrap, depends_on: [], authority_refs: [AUTH], allowed_paths: ["/"], acceptance_commands: [task qa], stop_conditions: [stop], protected_surface: true, completion_evidence: [pass]}
+  - {id: WP-001, title: A, state: READY, purpose: A, depends_on: [WP-002], authority_refs: [AUTH], allowed_paths: [a/**], acceptance_commands: [task test], stop_conditions: [stop], protected_surface: true, completion_evidence: [pass]}
+  - {id: WP-002, title: B, state: READY, purpose: B, depends_on: [WP-001], authority_refs: [AUTH], allowed_paths: [b/**], acceptance_commands: [task test], stop_conditions: [stop], protected_surface: true, completion_evidence: [pass]}

@@ -1,0 +1,8 @@
+id: core-engine
+owned_data: &id001
+- workflow_state
+- authority_model
+- artifact_graph
+must_not_write: []
+writes: *id001
+dependencies: []

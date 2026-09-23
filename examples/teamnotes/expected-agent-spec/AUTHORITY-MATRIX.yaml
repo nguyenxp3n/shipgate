@@ -1,0 +1,23 @@
+subjects:
+  product_behavior:
+    composition: single
+    primary: [expected-core-spec/PRODUCT-SPEC.md]
+  domain_semantics:
+    composition: single
+    primary: [expected-core-spec/DOMAIN-MODEL.md]
+  data_semantics:
+    composition: single
+    primary: [expected-core-spec/DATA-MODEL.md]
+  security_invariants:
+    composition: single
+    primary: [expected-core-spec/SECURITY.md]
+  deployment_semantics:
+    composition: single
+    primary: [expected-core-spec/DEPLOYMENT.md]
+  http_wire_shape:
+    composition: single
+    primary: [expected-contracts/openapi.yaml]
+  event_wire_shape:
+    composition: composed
+    primary: [expected-contracts/events/*.schema.json]
+    merge_semantics: Each file owns exactly one event type and version.

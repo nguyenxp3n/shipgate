@@ -1,0 +1,10 @@
+id: users
+scope: User profile/preferences
+authority: Users module contract
+required_decisions:
+- owned fields
+- privacy classification
+- update/delete/export semantics
+- cross-module references
+requires_failure_contract: true
+requires_tests: true

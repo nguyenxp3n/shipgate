@@ -1,0 +1,11 @@
+id: api
+scope: HTTP/public API
+authority: OpenAPI wire shape plus normative API semantics
+required_decisions:
+- versioning/base path
+- error envelope
+- authentication/authorization metadata
+- idempotency
+- pagination/retry
+requires_failure_contract: true
+requires_tests: true

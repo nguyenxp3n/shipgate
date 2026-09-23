@@ -1,0 +1,14 @@
+id: search
+capability: search
+version: 2.0.0
+documents:
+- REQUIREMENTS.md
+schemas: []
+validators:
+- validate_search
+testing:
+- TESTING.yaml
+audit_rules:
+- AUDIT-RULES.yaml
+work_package_rules:
+- WORK-PACKAGE-RULES.md

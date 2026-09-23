@@ -1,0 +1,6 @@
+errors:
+- code: RESOURCE_NOT_FOUND
+  http_status: 404
+  public_message: Resource not found
+  retryable: false
+  owner: project-resolved

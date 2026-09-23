@@ -1,0 +1,6 @@
+kind: async-durability
+expected_codes: [ASYNC_DURABILITY_CONTRACT_MISSING]
+async:
+  durable_cross_module_effect: true
+  producer_outbox: false
+  consumer_idempotency: false

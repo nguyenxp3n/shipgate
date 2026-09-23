@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://apfw.local/schemas/validation-issue.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["code", "message", "severity"],
+  "properties": {
+    "code": {"type": "string", "minLength": 1},
+    "message": {"type": "string", "minLength": 1},
+    "severity": {"type": "string", "enum": ["ERROR", "WARNING", "INFO"]},
+    "path": {"type": ["string", "null"]},
+    "subject_id": {"type": ["string", "null"]}
+  }
+}

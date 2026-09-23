@@ -1,0 +1,11 @@
+openapi: 3.0.3
+info: {title: Test API, version: 1.0.0}
+paths:
+  /a:
+    get:
+      operationId: duplicate
+      responses: {'200': {description: ok}}
+  /b:
+    post:
+      operationId: duplicate
+      responses: {'200': {description: ok}}

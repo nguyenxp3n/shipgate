@@ -1,0 +1,8 @@
+id: notifications
+owned_data: &id001
+- notification_intents
+- delivery_attempts
+must_not_write: []
+writes: *id001
+dependencies:
+- organizations

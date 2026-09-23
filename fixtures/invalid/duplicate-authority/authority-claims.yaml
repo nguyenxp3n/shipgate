@@ -1,0 +1,3 @@
+claims:
+  - {subject: http_wire_shape, primary: contracts/openapi-a.yaml}
+  - {subject: http_wire_shape, primary: contracts/openapi-b.yaml}

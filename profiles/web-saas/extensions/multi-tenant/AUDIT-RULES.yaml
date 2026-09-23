@@ -1,0 +1,5 @@
+extension: multi-tenant
+rules:
+- Confirm tenant isolation has explicit semantics and evidence.
+- Confirm cross-tenant authorization has explicit semantics and evidence.
+- Confirm tenant delete/export has explicit semantics and evidence.

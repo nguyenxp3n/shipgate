@@ -1,0 +1,11 @@
+id: payments
+scope: Provider payment/subscription integration
+authority: Provider state and application entitlement state are distinct
+required_decisions:
+- webhook verification
+- idempotency/dedupe
+- out-of-order handling
+- reconciliation
+- entitlement authority
+requires_failure_contract: true
+requires_tests: true
