@@ -103,7 +103,9 @@ def build_zip(staging: Path, archive: Path) -> str:
     archive = archive.resolve()
     archive.parent.mkdir(parents=True, exist_ok=True)
     with ZipFile(archive, "w", compression=ZIP_DEFLATED, compresslevel=9) as handle:
-        for path in sorted(staging.rglob("*"), key=lambda item: item.relative_to(staging).as_posix()):
+        for path in sorted(
+            staging.rglob("*"), key=lambda item: item.relative_to(staging).as_posix()
+        ):
             if not path.is_file():
                 continue
             relative = path.relative_to(staging).as_posix()

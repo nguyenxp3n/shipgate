@@ -1,7 +1,5 @@
 from pathlib import Path
 
-import pytest
-
 from project_finalizer.cli import main
 from project_finalizer.decisions import DecisionStore
 from project_finalizer.io import ProjectFS

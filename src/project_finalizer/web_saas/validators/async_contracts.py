@@ -16,11 +16,18 @@ class AsyncContractsValidator:
     }
 
     def validate(self, ctx) -> ValidationReport:
-        if not (enabled(ctx, "events") or enabled(ctx, "jobs") or enabled(ctx, "background_processing")):
+        if not (
+            enabled(ctx, "events") or enabled(ctx, "jobs") or enabled(ctx, "background_processing")
+        ):
             return ValidationReport()
         contract = mapping(ctx, "async_contracts")
         issues = []
         for field, code in self._FIELDS.items():
             if not contract.get(field):
-                issues.append(issue(code, f"asynchronous processing requires {field.replace('_', ' ')} semantics"))
+                issues.append(
+                    issue(
+                        code,
+                        f"asynchronous processing requires {field.replace('_', ' ')} semantics",
+                    )
+                )
         return ValidationReport(tuple(issues))

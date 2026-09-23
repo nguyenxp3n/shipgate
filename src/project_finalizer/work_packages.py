@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass
 from heapq import heappop, heappush
-from typing import Iterable
 
 from project_finalizer.errors import ExitCode, WorkflowError
 
@@ -75,7 +75,7 @@ class WorkPackageGraph:
             )
 
     @classmethod
-    def from_edges(cls, edges: dict[str, tuple[str, ...]]) -> "WorkPackageGraph":
+    def from_edges(cls, edges: dict[str, tuple[str, ...]]) -> WorkPackageGraph:
         return cls(edges)
 
     def _compute_topological_order(self) -> tuple[str, ...]:
@@ -110,9 +110,7 @@ class WorkPackageGraph:
     def ready_packages(self, completed: Iterable[str] = ()) -> tuple[str, ...]:
         done = set(completed)
         return tuple(
-            node
-            for node in self._order
-            if node not in done and set(self.edges[node]) <= done
+            node for node in self._order if node not in done and set(self.edges[node]) <= done
         )
 
 
@@ -143,7 +141,12 @@ def compile_wp_skeletons(
     ]
     for module_id in sorted(module_dependencies):
         deps = tuple(
-            sorted({"WP-000", *(module_to_wp[d] for d in module_dependencies[module_id] if d in module_to_wp)})
+            sorted(
+                {
+                    "WP-000",
+                    *(module_to_wp[d] for d in module_dependencies[module_id] if d in module_to_wp),
+                }
+            )
         )
         decisions = tuple(
             sorted(

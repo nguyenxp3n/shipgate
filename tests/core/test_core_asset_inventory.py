@@ -29,19 +29,38 @@ def test_core_handoff_asset_inventory(repo_root: Path) -> None:
 
 
 def test_operating_manual_contains_required_governance_markers(repo_root: Path) -> None:
-    text = (repo_root / "core/governance/AGENT-OPERATING-MANUAL.template.md").read_text(encoding="utf-8").casefold()
+    text = (
+        (repo_root / "core/governance/AGENT-OPERATING-MANUAL.template.md")
+        .read_text(encoding="utf-8")
+        .casefold()
+    )
     for marker in (
-        "level 1", "level 2", "level 3", "protected", "decision request",
-        "historical audit", "command gateway", "work package", "dependency",
-        "build_ready", "runtime_verified", "production_ready",
+        "level 1",
+        "level 2",
+        "level 3",
+        "protected",
+        "decision request",
+        "historical audit",
+        "command gateway",
+        "work package",
+        "dependency",
+        "build_ready",
+        "runtime_verified",
+        "production_ready",
     ):
         assert marker in text
 
 
 def test_generic_core_normative_templates_have_no_web_stack_authority(repo_root: Path) -> None:
     core = repo_root / "core"
-    files = list((core / "specification").glob("*")) + list((core / "testing").glob("*")) + [core / "governance/AGENT-OPERATING-MANUAL.template.md"]
+    files = (
+        list((core / "specification").glob("*"))
+        + list((core / "testing").glob("*"))
+        + [core / "governance/AGENT-OPERATING-MANUAL.template.md"]
+    )
     forbidden = ("react", "postgresql", "same-site cookie", "cors origin")
-    combined = "\n".join(path.read_text(encoding="utf-8").casefold() for path in files if path.is_file())
+    combined = "\n".join(
+        path.read_text(encoding="utf-8").casefold() for path in files if path.is_file()
+    )
     for term in forbidden:
         assert term not in combined

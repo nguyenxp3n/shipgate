@@ -57,13 +57,17 @@ from project_finalizer.validators import ValidatorRegistry
 class ZValidator:
     name = "z"
     layer = "structure"
+
     def validate(self, ctx):
-        return ValidationReport((ValidationIssue("Z2", "b", "ERROR"), ValidationIssue("Z1", "a", "ERROR")))
+        return ValidationReport(
+            (ValidationIssue("Z2", "b", "ERROR"), ValidationIssue("Z1", "a", "ERROR"))
+        )
 
 
 class AValidator:
     name = "a"
     layer = "syntax"
+
     def validate(self, ctx):
         return ValidationReport((ValidationIssue("A1", "a", "ERROR"),))
 
@@ -89,8 +93,17 @@ Layer order is fixed:
 
 ```python
 LAYER_ORDER = (
-    "syntax", "structure", "references", "semantics", "authority",
-    "contracts", "security", "work_packages", "audit", "readiness", "release",
+    "syntax",
+    "structure",
+    "references",
+    "semantics",
+    "authority",
+    "contracts",
+    "security",
+    "work_packages",
+    "audit",
+    "readiness",
+    "release",
 )
 ```
 
@@ -187,7 +200,9 @@ from project_finalizer.validators.api import ApiValidator
 
 
 def test_duplicate_operation_id_fails(context_factory, repo_root):
-    ctx = context_factory(openapi_path=repo_root / "tests/fixtures/openapi/duplicate-operation-id.yaml")
+    ctx = context_factory(
+        openapi_path=repo_root / "tests/fixtures/openapi/duplicate-operation-id.yaml"
+    )
     report = ApiValidator().validate(ctx)
     assert "API_DUPLICATE_OPERATION_ID" in {i.code for i in report.issues}
 ```
@@ -243,7 +258,10 @@ from project_finalizer.audit import AuditLedger
 
 
 def test_orphan_disposition_blocks_closure():
-    ledger = AuditLedger.from_records(findings=[], dispositions=[{"finding_id": "CTR-001", "disposition": "REJECTED", "reason": "x"}])
+    ledger = AuditLedger.from_records(
+        findings=[],
+        dispositions=[{"finding_id": "CTR-001", "disposition": "REJECTED", "reason": "x"}],
+    )
     report = ledger.closure_report()
     assert "AUDIT_ORPHAN_DISPOSITION" in {i.code for i in report.issues}
 ```

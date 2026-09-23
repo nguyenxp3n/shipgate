@@ -40,7 +40,12 @@ class AdapterValidator:
             path = ctx.project_root / relative
             if not path.is_file():
                 issues.append(
-                    ValidationIssue("ADAPTER_MISSING", f"generated adapter missing: {relative}", "ERROR", path=relative)
+                    ValidationIssue(
+                        "ADAPTER_MISSING",
+                        f"generated adapter missing: {relative}",
+                        "ERROR",
+                        path=relative,
+                    )
                 )
                 continue
             text = path.read_text(encoding="utf-8")

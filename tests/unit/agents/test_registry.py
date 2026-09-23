@@ -15,5 +15,11 @@ def test_all_declared_role_contract_packages_exist(repo_root: Path) -> None:
     registry = RoleRegistry.load(repo_root / "prompts/ROLE-REGISTRY.yaml")
     for role in registry.roles:
         root = repo_root / "prompts" / role.role_id
-        for name in ("SYSTEM-ROLE.md", "INPUT-CONTRACT.md", "OUTPUT-CONTRACT.md", "STOP-CONDITIONS.md", "QUALITY-RUBRIC.md"):
+        for name in (
+            "SYSTEM-ROLE.md",
+            "INPUT-CONTRACT.md",
+            "OUTPUT-CONTRACT.md",
+            "STOP-CONDITIONS.md",
+            "QUALITY-RUBRIC.md",
+        ):
             assert (root / name).is_file(), f"{role.role_id}/{name}"

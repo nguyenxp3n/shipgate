@@ -4,7 +4,6 @@ import yaml
 
 from project_finalizer.generators.qa_reports import QAEvidence, generate_qa_reports
 
-
 EXPECTED_AREAS = {
     "LIFECYCLE",
     "AUTHORITY",

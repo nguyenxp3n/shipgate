@@ -20,7 +20,12 @@ class TestMatrixValidator:
         invariants = matrix.get("invariants", [])
         available = {str(value) for value in matrix.get("available", [])}
         reached = max(
-            (_wp_rank(str(wp.get("id", ""))) for wp in getattr(ctx, "work_packages", ()) if isinstance(wp, dict) and str(wp.get("state", "")).upper() in {"READY", "COMPLETE", "COMPLETED"}),
+            (
+                _wp_rank(str(wp.get("id", "")))
+                for wp in getattr(ctx, "work_packages", ())
+                if isinstance(wp, dict)
+                and str(wp.get("state", "")).upper() in {"READY", "COMPLETE", "COMPLETED"}
+            ),
             default=-1,
         )
         issues = []

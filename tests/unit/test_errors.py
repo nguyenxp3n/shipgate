@@ -1,4 +1,5 @@
-from project_finalizer.errors import ExitCode
+from project_finalizer.cli import run_cli
+from project_finalizer.errors import ExitCode, WorkflowError
 
 
 def test_exit_code_contract_is_stable():
@@ -12,9 +13,6 @@ def test_exit_code_contract_is_stable():
     assert ExitCode.BUILD_READINESS_FAILED == 70
     assert ExitCode.RELEASE_INTEGRITY_FAILED == 80
     assert ExitCode.INTERNAL_WORKFLOW_ERROR == 90
-
-from project_finalizer.cli import run_cli
-from project_finalizer.errors import WorkflowError
 
 
 def test_run_cli_maps_workflow_error_to_exit_code(capsys):

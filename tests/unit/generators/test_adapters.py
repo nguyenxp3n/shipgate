@@ -2,7 +2,6 @@ from pathlib import Path
 
 from project_finalizer.generators.adapters import generate_adapters
 
-
 BOOTSTRAP = [
     "Agent Operating Manual",
     "Authority Matrix",

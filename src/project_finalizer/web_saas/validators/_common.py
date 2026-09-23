@@ -28,5 +28,9 @@ def report(*issues: ValidationIssue) -> ValidationReport:
     return ValidationReport(tuple(issues))
 
 
-def issue(code: str, message: str, *, path: str | None = None, subject_id: str | None = None) -> ValidationIssue:
-    return ValidationIssue(code=code, message=message, severity="ERROR", path=path, subject_id=subject_id)
+def issue(
+    code: str, message: str, *, path: str | None = None, subject_id: str | None = None
+) -> ValidationIssue:
+    return ValidationIssue(
+        code=code, message=message, severity="ERROR", path=path, subject_id=subject_id
+    )

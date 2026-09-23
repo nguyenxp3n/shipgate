@@ -1,10 +1,11 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any
 
-from project_finalizer.models import ValidationIssue, ValidationReport
 from project_finalizer.agents.registry import RoleRegistry
+from project_finalizer.models import ValidationIssue, ValidationReport
 
 
 def _workflow_root() -> Path:
@@ -43,7 +44,11 @@ def evaluate_role_output(
         resolutions = output.get("conflict_resolutions", [])
         if isinstance(resolutions, list):
             for item in resolutions:
-                if isinstance(item, Mapping) and item.get("chosen_winner") and not item.get("decision_ref"):
+                if (
+                    isinstance(item, Mapping)
+                    and item.get("chosen_winner")
+                    and not item.get("decision_ref")
+                ):
                     issues.append(
                         ValidationIssue(
                             "ROLE_DISCOVERY_CHOSE_WINNER",
@@ -53,7 +58,6 @@ def evaluate_role_output(
                         )
                     )
 
-    unresolved = set(map(str, packet.get("protected_decisions", []))) if not isinstance(packet.get("protected_decisions"), list) else set()
     if role_id == "technical-architect":
         guessed = output.get("protected_decisions_resolved_without_dr", [])
         if isinstance(guessed, list) and guessed:

@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass
 from enum import StrEnum
-from typing import Mapping
 
 from project_finalizer.profiles import ProfileManifest
 
@@ -13,7 +13,7 @@ class CapabilityState(StrEnum):
     DISABLED = "disabled"
 
     @classmethod
-    def parse(cls, value: str) -> "CapabilityState":
+    def parse(cls, value: str) -> CapabilityState:
         try:
             return cls(value)
         except ValueError as exc:
@@ -55,7 +55,7 @@ class CapabilitySet:
     states: tuple[tuple[str, CapabilityState], ...]
 
     @classmethod
-    def from_mapping(cls, raw: Mapping[str, str]) -> "CapabilitySet":
+    def from_mapping(cls, raw: Mapping[str, str]) -> CapabilitySet:
         parsed: list[tuple[str, CapabilityState]] = []
         for name, value in sorted(raw.items()):
             if name not in KNOWN_CAPABILITIES:
@@ -68,7 +68,7 @@ class CapabilitySet:
         cls,
         profile: ProfileManifest,
         overrides: Mapping[str, str] | None = None,
-    ) -> "CapabilitySet":
+    ) -> CapabilitySet:
         overrides = overrides or {}
         allowed = set(profile.required_capabilities) | set(profile.optional_capabilities)
         unknown = sorted(set(overrides) - allowed)
@@ -77,9 +77,7 @@ class CapabilitySet:
         raw: dict[str, str] = {
             name: CapabilityState.REQUIRED.value for name in profile.required_capabilities
         }
-        raw.update(
-            {name: CapabilityState.DISABLED.value for name in profile.optional_capabilities}
-        )
+        raw.update({name: CapabilityState.DISABLED.value for name in profile.optional_capabilities})
         for name, value in overrides.items():
             state = CapabilityState.parse(value)
             if name in profile.required_capabilities and state is not CapabilityState.REQUIRED:

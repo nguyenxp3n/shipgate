@@ -40,7 +40,11 @@ def _is_workflow_repository(root: Path) -> bool:
     manifest_path = root / "WORKFLOW-MANIFEST.yaml"
     self_hosting_project = root / "self-hosting/project.yaml"
     self_hosting_authority = root / "self-hosting/AUTHORITY-MATRIX.yaml"
-    if not (manifest_path.is_file() and self_hosting_project.is_file() and self_hosting_authority.is_file()):
+    if not (
+        manifest_path.is_file()
+        and self_hosting_project.is_file()
+        and self_hosting_authority.is_file()
+    ):
         return False
     try:
         manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
@@ -49,7 +53,10 @@ def _is_workflow_repository(root: Path) -> bool:
     if not isinstance(manifest, dict):
         return False
     workflow = manifest.get("workflow")
-    return isinstance(workflow, dict) and workflow.get("name") in {"shipgate", "ai-project-finalization-workflow"}
+    return isinstance(workflow, dict) and workflow.get("name") in {
+        "shipgate",
+        "ai-project-finalization-workflow",
+    }
 
 
 def _require_workflow_repository_license(root: Path) -> None:
@@ -63,7 +70,10 @@ def _require_workflow_repository_license(root: Path) -> None:
     if not isinstance(manifest, dict):
         return
     workflow = manifest.get("workflow")
-    if not isinstance(workflow, dict) or workflow.get("name") not in {"shipgate", "ai-project-finalization-workflow"}:
+    if not isinstance(workflow, dict) or workflow.get("name") not in {
+        "shipgate",
+        "ai-project-finalization-workflow",
+    }:
         return
 
     decision_path = root / "docs/decisions/DR-WF-001-license.yaml"
@@ -158,7 +168,9 @@ def _preflight(root: Path) -> None:
 
 def handle_release(args: argparse.Namespace) -> int:
     root = Path(args.project).resolve()
-    output = Path(args.output).resolve() if args.output else root.parent / f"{root.name}-final-spec.zip"
+    output = (
+        Path(args.output).resolve() if args.output else root.parent / f"{root.name}-final-spec.zip"
+    )
     _ensure_output_outside_project(root, output)
     workflow_repository = _is_workflow_repository(root)
     _preflight(root)

@@ -45,7 +45,7 @@ class RoleRegistry:
         self._by_id = {role.role_id: role for role in self.roles}
 
     @classmethod
-    def load(cls, path: Path) -> "RoleRegistry":
+    def load(cls, path: Path) -> RoleRegistry:
         raw: Any = yaml.safe_load(path.read_text(encoding="utf-8"))
         if not isinstance(raw, dict) or not isinstance(raw.get("roles"), list):
             raise ValueError("invalid role registry")

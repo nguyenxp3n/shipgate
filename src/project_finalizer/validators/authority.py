@@ -47,11 +47,17 @@ class AuthorityValidator:
                         _ERROR_MAP.get(exc.code, "AUTH_MATRIX_INVALID"),
                         str(exc),
                         "ERROR",
-                        path=path.relative_to(ctx.project_root).as_posix() if path.is_relative_to(ctx.project_root) else str(path),
+                        path=path.relative_to(ctx.project_root).as_posix()
+                        if path.is_relative_to(ctx.project_root)
+                        else str(path),
                     )
                 )
         for artifact in sorted(ctx.generated_artifacts, key=lambda item: str(item.get("path", ""))):
-            if bool(artifact.get("generated", True)) and not artifact.get("source_refs") and not artifact.get("source_hashes"):
+            if (
+                bool(artifact.get("generated", True))
+                and not artifact.get("source_refs")
+                and not artifact.get("source_hashes")
+            ):
                 issues.append(
                     ValidationIssue(
                         "AUTH_GENERATED_PROVENANCE_MISSING",

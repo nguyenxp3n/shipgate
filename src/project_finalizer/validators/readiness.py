@@ -14,8 +14,17 @@ class ReadinessValidator:
         if inputs is None:
             return ValidationReport()
         if not isinstance(inputs, ReadinessInputs):
-            return ValidationReport((ValidationIssue("READINESS_INPUT_INVALID", "readiness inputs are invalid", "ERROR"),))
+            return ValidationReport(
+                (
+                    ValidationIssue(
+                        "READINESS_INPUT_INVALID", "readiness inputs are invalid", "ERROR"
+                    ),
+                )
+            )
         report = evaluate_build_readiness(inputs)
         return ValidationReport(
-            tuple(ValidationIssue(code, code.replace("_", " ").title(), "ERROR") for code in report.blocker_codes)
+            tuple(
+                ValidationIssue(code, code.replace("_", " ").title(), "ERROR")
+                for code in report.blocker_codes
+            )
         )

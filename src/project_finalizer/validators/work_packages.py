@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
 from typing import Any
 
 import yaml
@@ -53,12 +52,17 @@ class WorkPackageValidator:
         issues: list[ValidationIssue] = []
         ids = [str(raw.get("id", "")) for raw in raw_packages]
         if len(ids) != len(set(ids)):
-            issues.append(ValidationIssue("WP_ID_DUPLICATE", "work package IDs must be unique", "ERROR"))
+            issues.append(
+                ValidationIssue("WP_ID_DUPLICATE", "work package IDs must be unique", "ERROR")
+            )
             return ValidationReport(tuple(issues))
         packages = {str(raw.get("id", "")): raw for raw in raw_packages}
         try:
             WorkPackageGraph.from_edges(
-                {wp_id: tuple(str(dep) for dep in raw.get("depends_on", [])) for wp_id, raw in packages.items()}
+                {
+                    wp_id: tuple(str(dep) for dep in raw.get("depends_on", []))
+                    for wp_id, raw in packages.items()
+                }
             )
         except WorkflowError as exc:
             issues.append(ValidationIssue(exc.code, str(exc), "ERROR"))
@@ -70,7 +74,11 @@ class WorkPackageValidator:
             except WorkflowError as exc:
                 issues.append(ValidationIssue(exc.code, str(exc), "ERROR", subject_id=wp_id))
             if package.state == "READY":
-                blocked_deps = [dep for dep in package.depends_on if packages.get(dep, {}).get("state") == "BLOCKED"]
+                blocked_deps = [
+                    dep
+                    for dep in package.depends_on
+                    if packages.get(dep, {}).get("state") == "BLOCKED"
+                ]
                 if blocked_deps:
                     issues.append(
                         ValidationIssue(
@@ -101,7 +109,11 @@ class WorkPackageValidator:
                 )
             known_authorities = ctx.known_authority_ids
             for ref in sorted(package.authority_refs):
-                if known_authorities and ref not in known_authorities and not (ctx.project_root / ref).exists():
+                if (
+                    known_authorities
+                    and ref not in known_authorities
+                    and not (ctx.project_root / ref).exists()
+                ):
                     issues.append(
                         ValidationIssue(
                             "WP_AUTHORITY_REF_UNKNOWN",
@@ -129,4 +141,6 @@ class WorkPackageValidator:
                         subject_id=wp_id,
                     )
                 )
-        return ValidationReport(tuple(sorted(issues, key=lambda issue: (issue.code, issue.subject_id or ""))))
+        return ValidationReport(
+            tuple(sorted(issues, key=lambda issue: (issue.code, issue.subject_id or "")))
+        )

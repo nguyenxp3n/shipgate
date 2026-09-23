@@ -8,7 +8,9 @@ from project_finalizer.state import ProjectState, StateStore, validate_transitio
 
 
 def test_raw_input_can_move_only_to_intake_complete():
-    state = ProjectState(current="RAW_INPUT", previous=None, allowed_next=("INTAKE_COMPLETE",), gates={})
+    state = ProjectState(
+        current="RAW_INPUT", previous=None, allowed_next=("INTAKE_COMPLETE",), gates={}
+    )
     validate_transition(state, "INTAKE_COMPLETE", {})
     with pytest.raises(WorkflowError) as exc:
         validate_transition(state, "BUILD_READY", {})

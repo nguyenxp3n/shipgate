@@ -19,7 +19,12 @@ def _print_human(report) -> None:
 def handle_validate(args: argparse.Namespace) -> int:
     report = build_default_registry().run(ValidationContext(project_root=args.project.resolve()))
     if args.format == "json":
-        print(json.dumps({"ok": report.ok, "issues": [asdict(issue) for issue in report.issues]}, sort_keys=True))
+        print(
+            json.dumps(
+                {"ok": report.ok, "issues": [asdict(issue) for issue in report.issues]},
+                sort_keys=True,
+            )
+        )
     else:
         _print_human(report)
     if any(issue.code == "INTERNAL_VALIDATOR_ERROR" for issue in report.issues):

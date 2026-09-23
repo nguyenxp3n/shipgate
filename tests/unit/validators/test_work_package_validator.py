@@ -25,7 +25,9 @@ def _wp(wp_id: str, **overrides):
 
 
 def test_wp_graph_requires_wp000(tmp_path: Path) -> None:
-    ctx = ValidationContext(tmp_path, work_packages=(_wp("WP-001"),), known_authority_ids=frozenset({"AUTH"}))
+    ctx = ValidationContext(
+        tmp_path, work_packages=(_wp("WP-001"),), known_authority_ids=frozenset({"AUTH"})
+    )
     report = WorkPackageValidator().validate(ctx)
     assert "WP_ENTRYPOINT_MISSING" in [issue.code for issue in report.issues]
 
@@ -33,9 +35,7 @@ def test_wp_graph_requires_wp000(tmp_path: Path) -> None:
 def test_wp_scope_contradiction_is_reported(tmp_path: Path) -> None:
     ctx = ValidationContext(
         tmp_path,
-        work_packages=(
-            _wp("WP-000", allowed_paths=["src/**"], forbidden_paths=["src/**"]),
-        ),
+        work_packages=(_wp("WP-000", allowed_paths=["src/**"], forbidden_paths=["src/**"]),),
         known_authority_ids=frozenset({"AUTH"}),
     )
     report = WorkPackageValidator().validate(ctx)

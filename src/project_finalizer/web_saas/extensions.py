@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Mapping
 
 import yaml
 
@@ -22,7 +22,13 @@ class ExtensionManifest:
     root: Path
 
     def obligation_paths(self) -> tuple[Path, ...]:
-        refs = (*self.documents, *self.schemas, *self.testing, *self.audit_rules, *self.work_package_rules)
+        refs = (
+            *self.documents,
+            *self.schemas,
+            *self.testing,
+            *self.audit_rules,
+            *self.work_package_rules,
+        )
         return tuple(self.root / ref for ref in refs)
 
 
@@ -52,7 +58,13 @@ class ExtensionRegistry:
         list_fields = {key: raw.get(key) for key in required[2:]}
         if any(not isinstance(value, list) for value in list_fields.values()):
             raise ValueError("incomplete extension obligation pack")
-        if not raw["documents"] or not raw["validators"] or not raw["testing"] or not raw["audit_rules"] or not raw["work_package_rules"]:
+        if (
+            not raw["documents"]
+            or not raw["validators"]
+            or not raw["testing"]
+            or not raw["audit_rules"]
+            or not raw["work_package_rules"]
+        ):
             raise ValueError("incomplete extension obligation pack")
         manifest = ExtensionManifest(
             extension_id=str(raw["id"]),
@@ -65,15 +77,23 @@ class ExtensionRegistry:
             work_package_rules=tuple(str(v) for v in raw["work_package_rules"]),
             root=directory,
         )
-        missing = [str(path.relative_to(directory)) for path in manifest.obligation_paths() if not path.is_file()]
+        missing = [
+            str(path.relative_to(directory))
+            for path in manifest.obligation_paths()
+            if not path.is_file()
+        ]
         if missing:
-            raise ValueError(f"incomplete extension obligation pack: missing {', '.join(sorted(missing))}")
+            raise ValueError(
+                f"incomplete extension obligation pack: missing {', '.join(sorted(missing))}"
+            )
         return manifest
 
     def manifests(self) -> tuple[ExtensionManifest, ...]:
         if not self.root.is_dir():
             return ()
-        loaded = [self._load_manifest(path) for path in sorted(self.root.iterdir()) if path.is_dir()]
+        loaded = [
+            self._load_manifest(path) for path in sorted(self.root.iterdir()) if path.is_dir()
+        ]
         return tuple(sorted(loaded, key=lambda item: item.extension_id))
 
     def load_enabled(self, capabilities: Mapping[str, str]) -> tuple[ExtensionManifest, ...]:

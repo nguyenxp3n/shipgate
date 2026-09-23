@@ -17,9 +17,15 @@ def handle_audit_input(args: argparse.Namespace) -> ExitCode:
     root = Path(args.project).resolve()
     items = scan_inputs(root)
     print(f"Input files: {len(items)}")
-    print("Missing artifact classes: canonical-core-spec, authority-matrix, agent-spec, work-packages, audit")
+    print(
+        "Missing artifact classes: canonical-core-spec, authority-matrix, agent-spec, work-packages, audit"
+    )
     print("Conflicts: none machine-detectable without semantic agent review")
-    print("Estimated phases: discover, normalize, spec, contracts, agent-spec, wp, audit, correct, readiness, release")
+    print(
+        "Estimated phases: discover, normalize, spec, contracts, agent-spec, wp, audit, correct, readiness, release"
+    )
     print("Protected decisions: product/security/data/API/deployment decisions may be required")
-    print("Capability proposal: web-saas core capabilities require human/profile resolution after discovery")
+    print(
+        "Capability proposal: web-saas core capabilities require human/profile resolution after discovery"
+    )
     return ExitCode.PASS

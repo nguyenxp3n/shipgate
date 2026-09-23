@@ -13,7 +13,5 @@ def assert_unique_ids(values: Iterable[str]) -> None:
     for value in values:
         logical = normalize_id(value)
         if logical in seen:
-            raise ValueError(
-                f"duplicate logical identifier: {seen[logical]!r} and {value!r}"
-            )
+            raise ValueError(f"duplicate logical identifier: {seen[logical]!r} and {value!r}")
         seen[logical] = value

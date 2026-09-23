@@ -1,14 +1,21 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
 
 import yaml
 
 from project_finalizer.models import ValidationIssue, ValidationReport
 from project_finalizer.validators import ValidationContext
 
-_SKIP = {".git", ".worktrees", ".venv", "__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache"}
+_SKIP = {
+    ".git",
+    ".worktrees",
+    ".venv",
+    "__pycache__",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".ruff_cache",
+}
 
 
 class SyntaxValidator:

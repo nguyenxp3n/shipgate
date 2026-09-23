@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 import json
+from dataclasses import dataclass
 from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
@@ -54,11 +54,15 @@ def _load_yaml(path: Path) -> dict[str, Any]:
     return dict(raw) if isinstance(raw, dict) else {}
 
 
-def _teamnotes_context(project_root: Path) -> tuple[ValidationContext, list[dict[str, Any]], dict[str, Any]]:
+def _teamnotes_context(
+    project_root: Path,
+) -> tuple[ValidationContext, list[dict[str, Any]], dict[str, Any]]:
     module_dir = project_root / "expected-agent-spec/modules"
     modules = tuple(_load_yaml(path) for path in sorted(module_dir.glob("*.yaml")))
     graph = _load_yaml(project_root / "expected-work-packages/graph.yaml")
-    work_packages = [dict(item) for item in graph.get("work_packages", []) if isinstance(item, dict)]
+    work_packages = [
+        dict(item) for item in graph.get("work_packages", []) if isinstance(item, dict)
+    ]
     errors = _load_yaml(project_root / "expected-contracts/error-catalog.yaml")
     error_catalog = frozenset(str(value) for value in errors.get("errors", []))
     ctx = ValidationContext(
@@ -113,14 +117,18 @@ def validate_example_project(project_root: Path) -> StaticProjectResult:
     issues.extend(profile_registry.run(profile_ctx).issues)
 
     findings = _load_yaml(root / "expected-audit/findings.yaml").get("findings", [])
-    dispositions = _load_yaml(root / "expected-corrective/dispositions.yaml").get("dispositions", [])
+    dispositions = _load_yaml(root / "expected-corrective/dispositions.yaml").get(
+        "dispositions", []
+    )
     audit_report = AuditLedger.from_records(
         findings=[dict(item) for item in findings if isinstance(item, dict)],
         dispositions=[dict(item) for item in dispositions if isinstance(item, dict)],
     ).closure_report()
     issues.extend(audit_report.issues)
 
-    unresolved_critical = sum(1 for issue in audit_report.issues if issue.code == "AUDIT_CRITICAL_OPEN")
+    unresolved_critical = sum(
+        1 for issue in audit_report.issues if issue.code == "AUDIT_CRITICAL_OPEN"
+    )
     unresolved_high = sum(1 for issue in audit_report.issues if issue.code == "AUDIT_HIGH_OPEN")
     pending = tuple(
         path.stem
@@ -212,7 +220,9 @@ def validate_invalid_fixture(fixture_root: Path) -> StaticProjectResult:
         )
         issues.extend(report.issues)
         if any(issue.code == "WP_DEPENDENCY_CYCLE" for issue in report.issues):
-            issues.append(ValidationIssue("WP_CYCLE", "work-package graph contains a cycle", "ERROR"))
+            issues.append(
+                ValidationIssue("WP_CYCLE", "work-package graph contains a cycle", "ERROR")
+            )
 
     modules_path = root / "modules.yaml"
     if modules_path.is_file():
@@ -233,9 +243,15 @@ def validate_invalid_fixture(fixture_root: Path) -> StaticProjectResult:
         audit = _load_yaml(audit_path)
         issues.extend(
             AuditLedger.from_records(
-                findings=[dict(item) for item in audit.get("findings", []) if isinstance(item, dict)],
-                dispositions=[dict(item) for item in audit.get("dispositions", []) if isinstance(item, dict)],
-            ).closure_report().issues
+                findings=[
+                    dict(item) for item in audit.get("findings", []) if isinstance(item, dict)
+                ],
+                dispositions=[
+                    dict(item) for item in audit.get("dispositions", []) if isinstance(item, dict)
+                ],
+            )
+            .closure_report()
+            .issues
         )
 
     artifacts_path = root / "artifacts.yaml"
@@ -281,7 +297,11 @@ def validate_invalid_fixture(fixture_root: Path) -> StaticProjectResult:
         database = profile.get("database", {})
         if isinstance(database, dict):
             for entity in database.get("entities", []):
-                if isinstance(entity, dict) and entity.get("tenant_owned") and not entity.get("tenant_key"):
+                if (
+                    isinstance(entity, dict)
+                    and entity.get("tenant_owned")
+                    and not entity.get("tenant_key")
+                ):
                     issues.append(
                         ValidationIssue(
                             "WS_DB_TENANT_KEY_REQUIRED",
@@ -313,7 +333,9 @@ def validate_invalid_fixture(fixture_root: Path) -> StaticProjectResult:
         release_issues = ReleaseValidator().validate(ValidationContext(project_root=root)).issues
         issues.extend(release_issues)
         if any(issue.code == "RELEASE_CHECKSUM_MISMATCH" for issue in release_issues):
-            issues.append(ValidationIssue("RELEASE_HASH_MISMATCH", "release hash mismatch", "ERROR"))
+            issues.append(
+                ValidationIssue("RELEASE_HASH_MISMATCH", "release hash mismatch", "ERROR")
+            )
 
     def record_stage_issue(source: Path) -> None:
         if not source.is_dir():
@@ -361,32 +383,84 @@ def validate_regression_fixture(fixture_root: Path) -> StaticProjectResult:
         by_subject: dict[str, set[str]] = {}
         for claim in claims:
             if isinstance(claim, dict):
-                by_subject.setdefault(str(claim.get("subject", "")), set()).add(str(claim.get("primary", "")))
+                by_subject.setdefault(str(claim.get("subject", "")), set()).add(
+                    str(claim.get("primary", ""))
+                )
         for subject, primaries in by_subject.items():
             if len({value for value in primaries if value}) > 1:
-                issues.append(ValidationIssue("AUTH_DUPLICATE_PRIMARY", "multiple authorities claim one wire subject", "ERROR", subject_id=subject))
+                issues.append(
+                    ValidationIssue(
+                        "AUTH_DUPLICATE_PRIMARY",
+                        "multiple authorities claim one wire subject",
+                        "ERROR",
+                        subject_id=subject,
+                    )
+                )
 
     elif kind == "async-response-contradiction":
         operation = metadata.get("operation", {})
-        if isinstance(operation, dict) and operation.get("response_claims_authoritative_fields") and operation.get("update_mode") == "asynchronous_event" and not operation.get("synchronous_readback"):
-            issues.append(ValidationIssue("ASYNC_RESPONSE_AUTHORITY_CONTRADICTION", "synchronous response promises foreign authoritative state that is updated only asynchronously", "ERROR"))
+        if (
+            isinstance(operation, dict)
+            and operation.get("response_claims_authoritative_fields")
+            and operation.get("update_mode") == "asynchronous_event"
+            and not operation.get("synchronous_readback")
+        ):
+            issues.append(
+                ValidationIssue(
+                    "ASYNC_RESPONSE_AUTHORITY_CONTRADICTION",
+                    "synchronous response promises foreign authoritative state that is updated only asynchronously",
+                    "ERROR",
+                )
+            )
 
     elif kind == "foreign-owner-write":
         modules = metadata.get("modules", [])
-        issues.extend(OwnershipValidator().validate(ValidationContext(project_root=root, modules=tuple(dict(item) for item in modules if isinstance(item, dict)))).issues)
+        issues.extend(
+            OwnershipValidator()
+            .validate(
+                ValidationContext(
+                    project_root=root,
+                    modules=tuple(dict(item) for item in modules if isinstance(item, dict)),
+                )
+            )
+            .issues
+        )
 
     elif kind == "async-durability":
         async_contract = metadata.get("async", {})
-        if isinstance(async_contract, dict) and async_contract.get("durable_cross_module_effect") and (not async_contract.get("producer_outbox") or not async_contract.get("consumer_idempotency")):
-            issues.append(ValidationIssue("ASYNC_DURABILITY_CONTRACT_MISSING", "durable cross-module async effects require producer durability and idempotent consumption", "ERROR"))
+        if (
+            isinstance(async_contract, dict)
+            and async_contract.get("durable_cross_module_effect")
+            and (
+                not async_contract.get("producer_outbox")
+                or not async_contract.get("consumer_idempotency")
+            )
+        ):
+            issues.append(
+                ValidationIssue(
+                    "ASYNC_DURABILITY_CONTRACT_MISSING",
+                    "durable cross-module async effects require producer durability and idempotent consumption",
+                    "ERROR",
+                )
+            )
 
     elif kind == "event-schema-drift":
         event = metadata.get("event", {})
-        if isinstance(event, dict) and set(map(str, event.get("catalog_fields", []))) != set(map(str, event.get("schema_fields", []))):
-            issues.append(ValidationIssue("EVENT_SCHEMA_DRIFT", "event catalog and machine schema fields differ", "ERROR"))
+        if isinstance(event, dict) and set(map(str, event.get("catalog_fields", []))) != set(
+            map(str, event.get("schema_fields", []))
+        ):
+            issues.append(
+                ValidationIssue(
+                    "EVENT_SCHEMA_DRIFT", "event catalog and machine schema fields differ", "ERROR"
+                )
+            )
 
     elif kind == "timeout-budget":
-        issues.extend(FeasibilityValidator().validate(SimpleNamespace(resource_budget=metadata.get("resource_budget", {}))).issues)
+        issues.extend(
+            FeasibilityValidator()
+            .validate(SimpleNamespace(resource_budget=metadata.get("resource_budget", {})))
+            .issues
+        )
 
     elif kind == "wp-gate-timing":
         invariant = metadata.get("invariant", {})
@@ -399,14 +473,25 @@ def validate_regression_fixture(fixture_root: Path) -> StaticProjectResult:
             except (IndexError, ValueError):
                 required_n = activated_n = 0
             if activated_n > required_n:
-                issues.append(ValidationIssue("WP_INVARIANT_ACTIVATION_LATE", "critical invariant activates after the package that first needs it", "ERROR", subject_id=str(invariant.get("id", ""))))
+                issues.append(
+                    ValidationIssue(
+                        "WP_INVARIANT_ACTIVATION_LATE",
+                        "critical invariant activates after the package that first needs it",
+                        "ERROR",
+                        subject_id=str(invariant.get("id", "")),
+                    )
+                )
 
     elif kind == "historical-authority":
         authority = metadata.get("authority", {})
         try:
             AuthorityMatrix.from_mapping(dict(authority) if isinstance(authority, dict) else {})
         except WorkflowError as exc:
-            code = "AUTH_HISTORICAL_LEAKAGE" if exc.code == "HISTORICAL_AUTHORITY_FORBIDDEN" else exc.code
+            code = (
+                "AUTH_HISTORICAL_LEAKAGE"
+                if exc.code == "HISTORICAL_AUTHORITY_FORBIDDEN"
+                else exc.code
+            )
             issues.append(ValidationIssue(code, str(exc), "ERROR"))
 
     return StaticProjectResult(tuple(issues), "FAIL" if issues else "PASS")
@@ -430,26 +515,38 @@ def validate_self_hosting(repo_root: Path) -> StaticProjectResult:
     # Self-hosting uses the same generic layers but intentionally has no web-saas context.
     issues = list(build_default_registry().run(ctx).issues)
     audit_findings = _load_yaml(root / "self-hosting/audit/findings.yaml").get("findings", [])
-    audit_dispositions = _load_yaml(root / "self-hosting/audit/dispositions.yaml").get("dispositions", [])
+    audit_dispositions = _load_yaml(root / "self-hosting/audit/dispositions.yaml").get(
+        "dispositions", []
+    )
     issues.extend(
         AuditLedger.from_records(
             findings=[dict(item) for item in audit_findings if isinstance(item, dict)],
             dispositions=[dict(item) for item in audit_dispositions if isinstance(item, dict)],
-        ).closure_report().issues
+        )
+        .closure_report()
+        .issues
     )
     readiness = evaluate_build_readiness(
         ReadinessInputs(
             documentation_complete=(
                 (root / "docs/superpowers/specs/shipgate-architecture-spec.md").is_file()
-                or (root / "docs/superpowers/specs/2026-09-20-ai-project-finalization-workflow-v2-design.md").is_file()
+                or (
+                    root
+                    / "docs/superpowers/specs/2026-09-20-ai-project-finalization-workflow-v2-design.md"
+                ).is_file()
             ),
             authority_resolved=not any(issue.code.startswith("AUTH_") for issue in issues),
-            machine_contracts_valid=not any(issue.code.startswith(("OWN_", "REF_", "SYNTAX_")) for issue in issues),
+            machine_contracts_valid=not any(
+                issue.code.startswith(("OWN_", "REF_", "SYNTAX_")) for issue in issues
+            ),
             wp_entrypoint_exists=any(wp.get("id") == "WP-000" for wp in work_packages),
             critical_blockers=sum(1 for issue in issues if issue.code == "AUDIT_CRITICAL_OPEN"),
             high_blockers=sum(1 for issue in issues if issue.code == "AUDIT_HIGH_OPEN"),
         )
     )
     if readiness.verdict != "PASS":
-        issues.extend(ValidationIssue(code, code.replace("_", " ").title(), "ERROR") for code in readiness.blocker_codes)
+        issues.extend(
+            ValidationIssue(code, code.replace("_", " ").title(), "ERROR")
+            for code in readiness.blocker_codes
+        )
     return StaticProjectResult(tuple(issues), readiness.verdict)

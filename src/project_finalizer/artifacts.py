@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass
-from typing import Any, Iterable
+from typing import Any
 
 from project_finalizer.errors import ExitCode, WorkflowError
 from project_finalizer.ids import assert_unique_ids
@@ -17,7 +18,7 @@ class ArtifactRecord:
     generated: bool = True
 
     @classmethod
-    def from_mapping(cls, raw: dict[str, Any]) -> "ArtifactRecord":
+    def from_mapping(cls, raw: dict[str, Any]) -> ArtifactRecord:
         return cls(
             artifact_id=str(raw["artifact_id"]),
             path=str(raw["path"]),
@@ -125,7 +126,7 @@ class ArtifactGraph:
         path: str,
         depends_on: tuple[str, ...],
         generated: bool = True,
-    ) -> "ArtifactGraph":
+    ) -> ArtifactGraph:
         if not fs.resolve(path).is_file():
             raise WorkflowError(
                 f"generated artifact output does not exist: {path}",
@@ -160,7 +161,7 @@ class ArtifactGraph:
         )
 
     @classmethod
-    def load(cls, fs: ProjectFS) -> "ArtifactGraph":
+    def load(cls, fs: ProjectFS) -> ArtifactGraph:
         path = fs.resolve(cls.PATH)
         if not path.is_file():
             return cls(())

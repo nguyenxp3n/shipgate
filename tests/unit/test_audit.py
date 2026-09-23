@@ -30,13 +30,17 @@ def test_orphan_disposition_blocks_closure() -> None:
 
 
 def test_critical_and_high_without_disposition_remain_open() -> None:
-    ledger = AuditLedger.from_records(findings=[finding("CTR-001", "CRITICAL"), finding("TEC-002", "HIGH")], dispositions=[])
+    ledger = AuditLedger.from_records(
+        findings=[finding("CTR-001", "CRITICAL"), finding("TEC-002", "HIGH")], dispositions=[]
+    )
     codes = {i.code for i in ledger.closure_report().issues}
     assert {"AUDIT_CRITICAL_OPEN", "AUDIT_HIGH_OPEN"} <= codes
 
 
 def test_deferred_critical_is_terminal_but_still_blocker() -> None:
-    ledger = AuditLedger.from_records(findings=[finding()], dispositions=[disposition(kind="DEFERRED")])
+    ledger = AuditLedger.from_records(
+        findings=[finding()], dispositions=[disposition(kind="DEFERRED")]
+    )
     assert "AUDIT_CRITICAL_OPEN" in {i.code for i in ledger.closure_report().issues}
 
 

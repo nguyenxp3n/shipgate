@@ -8,6 +8,8 @@ def test_cookie_credentials_require_csrf_disposition(web_context_factory):
 
 
 def test_cross_origin_credentials_require_explicit_origins(web_context_factory):
-    ctx = web_context_factory(auth={"cross_origin_credentials": True, "cors_allowed_origins": ["*"]})
+    ctx = web_context_factory(
+        auth={"cross_origin_credentials": True, "cors_allowed_origins": ["*"]}
+    )
     report = AuthValidator().validate(ctx)
     assert "WS_AUTH_CORS_EXACT_ORIGINS_REQUIRED" in {i.code for i in report.issues}

@@ -3,10 +3,25 @@ from pathlib import Path
 from project_finalizer.web_saas.extensions import ExtensionRegistry
 
 EXTENSIONS = {
-    "multi-tenant", "payments", "file-storage", "email", "realtime", "search",
-    "ai-integration", "background-processing", "webhook-provider", "analytics", "pwa",
+    "multi-tenant",
+    "payments",
+    "file-storage",
+    "email",
+    "realtime",
+    "search",
+    "ai-integration",
+    "background-processing",
+    "webhook-provider",
+    "analytics",
+    "pwa",
 }
-REQUIRED = {"EXTENSION-MANIFEST.yaml", "REQUIREMENTS.md", "TESTING.yaml", "AUDIT-RULES.yaml", "WORK-PACKAGE-RULES.md"}
+REQUIRED = {
+    "EXTENSION-MANIFEST.yaml",
+    "REQUIREMENTS.md",
+    "TESTING.yaml",
+    "AUDIT-RULES.yaml",
+    "WORK-PACKAGE-RULES.md",
+}
 
 
 def test_all_extension_packs_have_complete_inventory(repo_root: Path) -> None:

@@ -165,8 +165,8 @@ def run_phase(phase_id: str, project_root: Path) -> ExitCode:
         print("Architecture output validated")
         return ExitCode.PASS
 
-    contract = phase_for_state(state.current)
-    if contract is None:
+    phase_contract = phase_for_state(state.current)
+    if phase_contract is None:
         if state.current == "FINAL_RELEASE":
             print("State: FINAL_RELEASE")
             return ExitCode.PASS
@@ -175,17 +175,17 @@ def run_phase(phase_id: str, project_root: Path) -> ExitCode:
             exit_code=ExitCode.INVALID_PROJECT_STATE,
             code="PHASE_CONTRACT_MISSING",
         )
-    if contract.phase_id != phase_id:
+    if phase_contract.phase_id != phase_id:
         raise WorkflowError(
-            f"phase {phase_id} is not valid in state {state.current}; expected {contract.phase_id}",
+            f"phase {phase_id} is not valid in state {state.current}; expected {phase_contract.phase_id}",
             exit_code=ExitCode.INVALID_PROJECT_STATE,
             code="PHASE_STATE_MISMATCH",
         )
-    outputs = validate_phase_outputs(fs, contract)
-    validator_results = _run_phase_validators(root, contract)
-    _run_record(fs, contract, outputs, validator_results)
-    if contract.next_state is not None:
-        state_store.transition(contract.next_state, {"phase_outputs_valid": True})
+    outputs = validate_phase_outputs(fs, phase_contract)
+    validator_results = _run_phase_validators(root, phase_contract)
+    _run_record(fs, phase_contract, outputs, validator_results)
+    if phase_contract.next_state is not None:
+        state_store.transition(phase_contract.next_state, {"phase_outputs_valid": True})
     print(f"Phase {phase_id}: PASS")
     return ExitCode.PASS
 
@@ -222,9 +222,7 @@ def finalize_project(project_root: Path) -> ExitCode:
 
             from project_finalizer.commands.release import handle_release
 
-            return ExitCode(
-                handle_release(argparse.Namespace(project=root, output=None))
-            )
+            return ExitCode(handle_release(argparse.Namespace(project=root, output=None)))
         contract = phase_for_state(state.current)
         if contract is None:
             raise WorkflowError(

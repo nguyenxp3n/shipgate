@@ -35,23 +35,40 @@ class ReleaseValidator:
                 expected, relative = line.split("  ", 1)
             except ValueError:
                 issues.append(
-                    ValidationIssue("RELEASE_CHECKSUM_FORMAT", f"invalid checksum line: {line}", "ERROR")
+                    ValidationIssue(
+                        "RELEASE_CHECKSUM_FORMAT", f"invalid checksum line: {line}", "ERROR"
+                    )
                 )
                 continue
             if relative in seen:
                 issues.append(
-                    ValidationIssue("RELEASE_CHECKSUM_DUPLICATE", f"duplicate checksum path: {relative}", "ERROR", path=relative)
+                    ValidationIssue(
+                        "RELEASE_CHECKSUM_DUPLICATE",
+                        f"duplicate checksum path: {relative}",
+                        "ERROR",
+                        path=relative,
+                    )
                 )
                 continue
             seen.add(relative)
             target = stage / relative
             if not target.is_file():
                 issues.append(
-                    ValidationIssue("RELEASE_CHECKSUM_TARGET_MISSING", f"checksum target missing: {relative}", "ERROR", path=relative)
+                    ValidationIssue(
+                        "RELEASE_CHECKSUM_TARGET_MISSING",
+                        f"checksum target missing: {relative}",
+                        "ERROR",
+                        path=relative,
+                    )
                 )
             elif _sha256(target) != expected:
                 issues.append(
-                    ValidationIssue("RELEASE_CHECKSUM_MISMATCH", f"checksum mismatch: {relative}", "ERROR", path=relative)
+                    ValidationIssue(
+                        "RELEASE_CHECKSUM_MISMATCH",
+                        f"checksum mismatch: {relative}",
+                        "ERROR",
+                        path=relative,
+                    )
                 )
         actual = {
             path.relative_to(stage).as_posix()
@@ -60,6 +77,11 @@ class ReleaseValidator:
         }
         for relative in sorted(actual - seen):
             issues.append(
-                ValidationIssue("RELEASE_CHECKSUM_UNLISTED", f"file missing from checksum inventory: {relative}", "ERROR", path=relative)
+                ValidationIssue(
+                    "RELEASE_CHECKSUM_UNLISTED",
+                    f"file missing from checksum inventory: {relative}",
+                    "ERROR",
+                    path=relative,
+                )
             )
         return ValidationReport(tuple(issues))

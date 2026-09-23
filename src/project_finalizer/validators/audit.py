@@ -43,4 +43,6 @@ class AuditValidator:
             )
             return ledger.closure_report()
         except (OSError, yaml.YAMLError) as exc:
-            return ValidationReport((ValidationIssue("AUDIT_PARSE", str(exc), "ERROR", path="docs/audits"),))
+            return ValidationReport(
+                (ValidationIssue("AUDIT_PARSE", str(exc), "ERROR", path="docs/audits"),)
+            )

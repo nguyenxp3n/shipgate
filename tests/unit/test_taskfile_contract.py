@@ -1,10 +1,20 @@
 from pathlib import Path
+
 import yaml
 
-
 REQUIRED = {
-    "setup", "format", "format:check", "lint", "typecheck", "test", "test:unit",
-    "test:integration", "test:fixtures", "test:release", "qa", "release",
+    "setup",
+    "format",
+    "format:check",
+    "lint",
+    "typecheck",
+    "test",
+    "test:unit",
+    "test:integration",
+    "test:fixtures",
+    "test:release",
+    "qa",
+    "release",
 }
 
 

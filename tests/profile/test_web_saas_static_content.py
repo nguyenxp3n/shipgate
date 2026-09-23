@@ -7,7 +7,18 @@ def _text(repo_root: Path, relative: str) -> str:
 
 def test_browser_security_covers_required_surfaces(repo_root: Path) -> None:
     text = _text(repo_root, "security/BROWSER-SECURITY.md")
-    for marker in ("csp", "cors", "csrf", "xss", "clickjacking", "referrer policy", "permissions policy", "open redirect", "service worker", "private"):
+    for marker in (
+        "csp",
+        "cors",
+        "csrf",
+        "xss",
+        "clickjacking",
+        "referrer policy",
+        "permissions policy",
+        "open redirect",
+        "service worker",
+        "private",
+    ):
         assert marker in text
 
 

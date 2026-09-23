@@ -1,6 +1,12 @@
 from pathlib import Path
 
-from project_finalizer.release import build_zip, stage_release, verify_reextract, verify_zip, write_sha256sums
+from project_finalizer.release import (
+    build_zip,
+    stage_release,
+    verify_reextract,
+    verify_zip,
+    write_sha256sums,
+)
 
 
 def test_stage_archive_and_reextract_are_byte_identical(tmp_path: Path) -> None:

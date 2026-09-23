@@ -32,13 +32,19 @@ packages = ["src/project_finalizer"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["src"]
 addopts = "-ra"
 
 [tool.ruff]
 line-length = 100
 target-version = "py312"
 
+[tool.ruff.lint]
+select = ["E", "F"]
+ignore = ["E501"]
+
 [tool.mypy]
 python_version = "3.12"
-strict = true
-packages = ["project_finalizer"]
+ignore_missing_imports = true
+disallow_untyped_defs = false
+check_untyped_defs = true

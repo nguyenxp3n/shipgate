@@ -22,4 +22,6 @@ def generate_module_index(
         rows.append(f"| {module_id} | {owned} |")
     content = "# Module Index\n\n| Module | Owned data |\n| --- | --- |\n" + "\n".join(rows) + "\n"
     fs.write_text_atomic(output, content)
-    return register_generated(fs, graph, artifact_id="MODULE_INDEX", output=output, source_ids=source_ids)
+    return register_generated(
+        fs, graph, artifact_id="MODULE_INDEX", output=output, source_ids=source_ids
+    )

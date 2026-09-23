@@ -23,7 +23,7 @@ class AuthorityMatrix:
     subjects: dict[str, AuthoritySubject]
 
     @classmethod
-    def from_mapping(cls, raw: dict[str, Any]) -> "AuthorityMatrix":
+    def from_mapping(cls, raw: dict[str, Any]) -> AuthorityMatrix:
         subjects_raw = raw.get("subjects", {})
         if not isinstance(subjects_raw, dict):
             raise WorkflowError(
@@ -78,7 +78,9 @@ class AuthorityMatrix:
                 subject_type=str(subject_type),
                 composition=composition,
                 primary=primary,
-                merge_semantics=(None if value.get("merge_semantics") is None else str(value["merge_semantics"])),
+                merge_semantics=(
+                    None if value.get("merge_semantics") is None else str(value["merge_semantics"])
+                ),
                 authority=(None if value.get("authority") is None else str(value["authority"])),
             )
             if subject.authority == "advisory_only" and subject.primary:
@@ -93,7 +95,7 @@ class AuthorityMatrix:
         return cls(subjects=subjects)
 
     @classmethod
-    def load(cls, path: Path) -> "AuthorityMatrix":
+    def load(cls, path: Path) -> AuthorityMatrix:
         try:
             raw = yaml.safe_load(path.read_text(encoding="utf-8"))
         except (OSError, yaml.YAMLError) as exc:
@@ -113,7 +115,10 @@ class AuthorityMatrix:
     @staticmethod
     def _assert_normative_path(path: str) -> None:
         normalized = path.replace("\\", "/")
-        if normalized.startswith("docs/audits/historical/") or "/docs/audits/historical/" in normalized:
+        if (
+            normalized.startswith("docs/audits/historical/")
+            or "/docs/audits/historical/" in normalized
+        ):
             raise WorkflowError(
                 f"historical artifact cannot be normative: {path}",
                 exit_code=ExitCode.VALIDATION_FAILED,

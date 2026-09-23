@@ -130,7 +130,6 @@ class RunLedger:
         self.fs.write_yaml_atomic(self._path(run_id), raw)
         return raw
 
-
     def next_id(self) -> str:
         directory = self.fs.resolve(self.DIR)
         used = {path.stem for path in directory.glob("RUN-*.yaml")} if directory.is_dir() else set()

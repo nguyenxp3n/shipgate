@@ -64,8 +64,11 @@ from project_finalizer.intake import scan_inputs
 def test_teamnotes_raw_input_has_multiple_source_classes(repo_root):
     items = scan_inputs(repo_root / "examples/teamnotes/raw-input")
     assert {item.path for item in items} >= {
-        "product-notes.md", "api-notes.md", "data-notes.md",
-        "security-notes.md", "operations-notes.md",
+        "product-notes.md",
+        "api-notes.md",
+        "data-notes.md",
+        "security-notes.md",
+        "operations-notes.md",
     }
 ```
 
@@ -194,20 +197,23 @@ import pytest
 from project_finalizer.testing import validate_invalid_fixture
 
 
-@pytest.mark.parametrize("fixture,expected_code", [
-    ("duplicate-authority", "AUTH_DUPLICATE_PRIMARY"),
-    ("cyclic-wp", "WP_CYCLE"),
-    ("foreign-table-write", "OWN_FOREIGN_WRITE"),
-    ("open-audit-finding", "AUDIT_HIGH_OPEN"),
-    ("stale-openapi", "ARTIFACT_STALE"),
-    ("missing-authz", "API_AUTH_METADATA_MISSING"),
-    ("tenant-table-without-tenant-key", "WS_DB_TENANT_KEY_REQUIRED"),
-    ("orphan-event-consumer", "OWN_EVENT_SCHEMA_MISSING"),
-    ("adapter-overrides-core", "ADAPTER_NONCANONICAL_TRUTH"),
-    ("bad-release-hash", "RELEASE_HASH_MISMATCH"),
-    ("unsafe-symlink", "RELEASE_UNSAFE_SYMLINK"),
-    ("cookie-auth-without-csrf", "WS_AUTH_CSRF_REQUIRED"),
-])
+@pytest.mark.parametrize(
+    "fixture,expected_code",
+    [
+        ("duplicate-authority", "AUTH_DUPLICATE_PRIMARY"),
+        ("cyclic-wp", "WP_CYCLE"),
+        ("foreign-table-write", "OWN_FOREIGN_WRITE"),
+        ("open-audit-finding", "AUDIT_HIGH_OPEN"),
+        ("stale-openapi", "ARTIFACT_STALE"),
+        ("missing-authz", "API_AUTH_METADATA_MISSING"),
+        ("tenant-table-without-tenant-key", "WS_DB_TENANT_KEY_REQUIRED"),
+        ("orphan-event-consumer", "OWN_EVENT_SCHEMA_MISSING"),
+        ("adapter-overrides-core", "ADAPTER_NONCANONICAL_TRUTH"),
+        ("bad-release-hash", "RELEASE_HASH_MISMATCH"),
+        ("unsafe-symlink", "RELEASE_UNSAFE_SYMLINK"),
+        ("cookie-auth-without-csrf", "WS_AUTH_CSRF_REQUIRED"),
+    ],
+)
 def test_invalid_fixture_fails_for_expected_reason(repo_root, fixture, expected_code):
     result = validate_invalid_fixture(repo_root / "fixtures/invalid" / fixture)
     assert result.ok is False
@@ -443,11 +449,30 @@ git commit -m "ci: enforce workflow quality gateway"
 ```python
 # tests/release/test_package_blueprint.py
 REQUIRED_ROOT = {
-    "START-HERE.md", "README.md", "CHANGELOG.md", "VERSION",
-    "AGENTS.md", "CLAUDE.md", "GEMINI.md", "Taskfile.yml", "pyproject.toml",
-    "uv.lock", "WORKFLOW-MANIFEST.yaml", "core", "profiles", "adapters",
-    "schemas", "prompts", "validators", "generators", "cli", "tests",
-    "examples", "docs", "fixtures", "release",
+    "START-HERE.md",
+    "README.md",
+    "CHANGELOG.md",
+    "VERSION",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "GEMINI.md",
+    "Taskfile.yml",
+    "pyproject.toml",
+    "uv.lock",
+    "WORKFLOW-MANIFEST.yaml",
+    "core",
+    "profiles",
+    "adapters",
+    "schemas",
+    "prompts",
+    "validators",
+    "generators",
+    "cli",
+    "tests",
+    "examples",
+    "docs",
+    "fixtures",
+    "release",
 }
 
 

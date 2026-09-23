@@ -25,6 +25,13 @@ def test_historical_path_cannot_be_normative():
 
 def test_primary_for_single_subject():
     matrix = AuthorityMatrix.from_mapping(
-        {"subjects": {"product_behavior": {"primary": ["docs/core/PRODUCT-SPEC.md"], "composition": "single"}}}
+        {
+            "subjects": {
+                "product_behavior": {
+                    "primary": ["docs/core/PRODUCT-SPEC.md"],
+                    "composition": "single",
+                }
+            }
+        }
     )
     assert matrix.primary_for("product_behavior") == ("docs/core/PRODUCT-SPEC.md",)

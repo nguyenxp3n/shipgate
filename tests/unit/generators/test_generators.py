@@ -6,7 +6,9 @@ from project_finalizer.io import ProjectFS
 
 
 def _graph() -> ArtifactGraph:
-    return ArtifactGraph((ArtifactRecord("MODULE_SOURCE", "modules.yaml", (), {}, generated=False),))
+    return ArtifactGraph(
+        (ArtifactRecord("MODULE_SOURCE", "modules.yaml", (), {}, generated=False),)
+    )
 
 
 def test_module_index_is_deterministic_across_input_order(tmp_path: Path) -> None:
@@ -14,9 +16,13 @@ def test_module_index_is_deterministic_across_input_order(tmp_path: Path) -> Non
     fs.write_yaml_atomic("modules.yaml", {"modules": ["a", "b"]})
     modules_a = [{"id": "z", "owned_data": ["z"]}, {"id": "a", "owned_data": ["a"]}]
     modules_b = list(reversed(modules_a))
-    graph = generate_module_index(fs, _graph(), modules_a, output="module-index.md", source_ids=("MODULE_SOURCE",))
+    graph = generate_module_index(
+        fs, _graph(), modules_a, output="module-index.md", source_ids=("MODULE_SOURCE",)
+    )
     first = (tmp_path / "module-index.md").read_bytes()
-    generate_module_index(fs, graph, modules_b, output="module-index.md", source_ids=("MODULE_SOURCE",))
+    generate_module_index(
+        fs, graph, modules_b, output="module-index.md", source_ids=("MODULE_SOURCE",)
+    )
     assert (tmp_path / "module-index.md").read_bytes() == first
 
 

@@ -25,8 +25,20 @@ class DatabaseValidator:
                         )
                     )
             security_tests = {str(v) for v in test_matrix.get("security", [])}
-            if "tenant_isolation" not in security_tests and "tenant isolation" not in security_tests:
-                issues.append(issue("WS_TEST_TENANT_ISOLATION_REQUIRED", "multi-tenant projects require tenant-isolation test evidence"))
+            if (
+                "tenant_isolation" not in security_tests
+                and "tenant isolation" not in security_tests
+            ):
+                issues.append(
+                    issue(
+                        "WS_TEST_TENANT_ISOLATION_REQUIRED",
+                        "multi-tenant projects require tenant-isolation test evidence",
+                    )
+                )
         if database and database.get("ownership_resolved") is False:
-            issues.append(issue("WS_DB_OWNERSHIP_REQUIRED", "database entities require a single owning module"))
+            issues.append(
+                issue(
+                    "WS_DB_OWNERSHIP_REQUIRED", "database entities require a single owning module"
+                )
+            )
         return ValidationReport(tuple(issues))

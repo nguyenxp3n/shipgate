@@ -14,16 +14,20 @@ def test_enabled_extension_missing_validator_is_rejected(tmp_path: Path) -> None
     (ext / "AUDIT-RULES.yaml").write_text("rules: []\n", encoding="utf-8")
     (ext / "WORK-PACKAGE-RULES.md").write_text("rules\n", encoding="utf-8")
     (ext / "EXTENSION-MANIFEST.yaml").write_text(
-        yaml.safe_dump({
-            "id": "payments",
-            "capability": "payments",
-            "documents": ["REQUIREMENTS.md"],
-            "schemas": [],
-            "validators": [],
-            "testing": ["TESTING.yaml"],
-            "audit_rules": ["AUDIT-RULES.yaml"],
-            "work_package_rules": ["WORK-PACKAGE-RULES.md"],
-        }), encoding="utf-8")
+        yaml.safe_dump(
+            {
+                "id": "payments",
+                "capability": "payments",
+                "documents": ["REQUIREMENTS.md"],
+                "schemas": [],
+                "validators": [],
+                "testing": ["TESTING.yaml"],
+                "audit_rules": ["AUDIT-RULES.yaml"],
+                "work_package_rules": ["WORK-PACKAGE-RULES.md"],
+            }
+        ),
+        encoding="utf-8",
+    )
     registry = ExtensionRegistry(tmp_path)
     with pytest.raises(ValueError, match="incomplete extension obligation pack"):
         registry.load_enabled({"payments": "optional_enabled"})

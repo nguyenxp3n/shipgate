@@ -34,7 +34,7 @@ class ProjectState:
     gates: dict[str, Any]
 
     @classmethod
-    def from_mapping(cls, raw: dict[str, Any]) -> "ProjectState":
+    def from_mapping(cls, raw: dict[str, Any]) -> ProjectState:
         try:
             current = str(raw["current"])
             previous_raw = raw["previous"]

@@ -9,6 +9,7 @@ import yaml
 from project_finalizer.models import ValidationIssue, ValidationReport
 from project_finalizer.validators import ValidationContext
 
+_library_validate_spec: Any
 try:
     from openapi_spec_validator import validate_spec as _library_validate_spec
 except ImportError:  # exact dependency gate is handled explicitly at validation time
@@ -21,8 +22,12 @@ class ApiValidator:
     name = "api"
     layer = "contracts"
 
-    def __init__(self, *, validate_spec_func: Callable[[dict[str, Any]], None] | None = None) -> None:
-        self._validate_spec = validate_spec_func if validate_spec_func is not None else _library_validate_spec
+    def __init__(
+        self, *, validate_spec_func: Callable[[dict[str, Any]], None] | None = None
+    ) -> None:
+        self._validate_spec = (
+            validate_spec_func if validate_spec_func is not None else _library_validate_spec
+        )
 
     def _path(self, ctx: ValidationContext) -> Path | None:
         if ctx.openapi_path is not None:
@@ -37,9 +42,17 @@ class ApiValidator:
         try:
             document = yaml.safe_load(path.read_text(encoding="utf-8"))
         except (OSError, UnicodeError, yaml.YAMLError) as exc:
-            return ValidationReport((ValidationIssue("API_PARSE", str(exc), "ERROR", path=str(path)),))
+            return ValidationReport(
+                (ValidationIssue("API_PARSE", str(exc), "ERROR", path=str(path)),)
+            )
         if not isinstance(document, dict):
-            return ValidationReport((ValidationIssue("API_PARSE", "OpenAPI document must be a mapping", "ERROR", path=str(path)),))
+            return ValidationReport(
+                (
+                    ValidationIssue(
+                        "API_PARSE", "OpenAPI document must be a mapping", "ERROR", path=str(path)
+                    ),
+                )
+            )
 
         issues: list[ValidationIssue] = []
         if self._validate_spec is None:
@@ -60,7 +73,9 @@ class ApiValidator:
         seen_operation_ids: dict[str, str] = {}
         paths = document.get("paths", {})
         if not isinstance(paths, dict):
-            issues.append(ValidationIssue("API_PARSE", "paths must be a mapping", "ERROR", path=str(path)))
+            issues.append(
+                ValidationIssue("API_PARSE", "paths must be a mapping", "ERROR", path=str(path))
+            )
             return ValidationReport(tuple(issues))
         for route in sorted(paths):
             path_item = paths[route]
@@ -73,7 +88,14 @@ class ApiValidator:
                 subject = f"{method.upper()} {route}"
                 operation_id = operation.get("operationId")
                 if not isinstance(operation_id, str) or not operation_id.strip():
-                    issues.append(ValidationIssue("API_OPERATION_ID_MISSING", "public operation requires operationId", "ERROR", subject_id=subject))
+                    issues.append(
+                        ValidationIssue(
+                            "API_OPERATION_ID_MISSING",
+                            "public operation requires operationId",
+                            "ERROR",
+                            subject_id=subject,
+                        )
+                    )
                 else:
                     previous = seen_operation_ids.get(operation_id)
                     if previous is not None:
@@ -97,8 +119,30 @@ class ApiValidator:
                                 subject_id=subject,
                             )
                         )
-                if ctx.api_policy.get("require_auth_metadata") and "x-auth-required" not in operation:
-                    issues.append(ValidationIssue("API_AUTH_METADATA_MISSING", "auth metadata is required", "ERROR", subject_id=subject))
-                if ctx.api_policy.get("require_idempotency_metadata") and "x-idempotency" not in operation:
-                    issues.append(ValidationIssue("API_IDEMPOTENCY_METADATA_MISSING", "idempotency metadata is required", "ERROR", subject_id=subject))
-        return ValidationReport(tuple(sorted(issues, key=lambda issue: (issue.code, issue.subject_id or ""))))
+                if (
+                    ctx.api_policy.get("require_auth_metadata")
+                    and "x-auth-required" not in operation
+                ):
+                    issues.append(
+                        ValidationIssue(
+                            "API_AUTH_METADATA_MISSING",
+                            "auth metadata is required",
+                            "ERROR",
+                            subject_id=subject,
+                        )
+                    )
+                if (
+                    ctx.api_policy.get("require_idempotency_metadata")
+                    and "x-idempotency" not in operation
+                ):
+                    issues.append(
+                        ValidationIssue(
+                            "API_IDEMPOTENCY_METADATA_MISSING",
+                            "idempotency metadata is required",
+                            "ERROR",
+                            subject_id=subject,
+                        )
+                    )
+        return ValidationReport(
+            tuple(sorted(issues, key=lambda issue: (issue.code, issue.subject_id or "")))
+        )

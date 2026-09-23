@@ -32,6 +32,8 @@ def build_default_registry() -> ValidatorRegistry:
     )
 
 
-def run_validators(project_root: Path, validators: Iterable[Validator] | None = None) -> ValidationReport:
+def run_validators(
+    project_root: Path, validators: Iterable[Validator] | None = None
+) -> ValidationReport:
     registry = ValidatorRegistry(validators) if validators is not None else build_default_registry()
     return registry.run(ValidationContext(project_root=project_root.resolve()))

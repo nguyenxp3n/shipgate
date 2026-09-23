@@ -57,7 +57,7 @@ class ModuleCatalog:
         self._assert_acyclic()
 
     @classmethod
-    def from_mappings(cls, mappings: list[dict[str, Any]]) -> "ModuleCatalog":
+    def from_mappings(cls, mappings: list[dict[str, Any]]) -> ModuleCatalog:
         ids = [str(raw.get("id", "")) for raw in mappings]
         try:
             assert_unique_ids(ids)
@@ -144,7 +144,7 @@ class InteractionCatalog:
         self.interactions = tuple(sorted(interactions, key=lambda record: record.interaction_id))
 
     @classmethod
-    def from_mappings(cls, mappings: list[dict[str, Any]]) -> "InteractionCatalog":
+    def from_mappings(cls, mappings: list[dict[str, Any]]) -> InteractionCatalog:
         records: list[InteractionRecord] = []
         for raw in mappings:
             missing = sorted(cls.REQUIRED_FIELDS - set(raw))

@@ -116,6 +116,7 @@ class ValidationIssue:
     path: str | None = None
     subject_id: str | None = None
 
+
 @dataclass(frozen=True)
 class ValidationReport:
     issues: tuple[ValidationIssue, ...]
@@ -123,8 +124,10 @@ class ValidationReport:
     @property
     def ok(self) -> bool: ...
 
+
 class Validator(Protocol):
     name: str
+
     def validate(self, ctx: "ValidationContext") -> ValidationReport: ...
 ```
 

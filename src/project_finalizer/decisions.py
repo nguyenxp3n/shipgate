@@ -42,9 +42,10 @@ class DecisionStore:
         options: tuple[str, ...] = (),
         evidence: tuple[str, ...] = (),
     ) -> dict[str, Any]:
-        if self.fs.resolve(self._pending(decision_id)).exists() or self.fs.resolve(
-            self._resolved(decision_id)
-        ).exists():
+        if (
+            self.fs.resolve(self._pending(decision_id)).exists()
+            or self.fs.resolve(self._resolved(decision_id)).exists()
+        ):
             raise WorkflowError(
                 f"decision {decision_id} already exists",
                 exit_code=ExitCode.INVALID_PROJECT_STATE,

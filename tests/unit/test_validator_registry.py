@@ -70,18 +70,26 @@ def test_registry_rejects_unknown_layer() -> None:
         ValidatorRegistry([UnknownValidator()])
 
 
-def test_validate_cli_internal_error_uses_internal_exit_code(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_validate_cli_internal_error_uses_internal_exit_code(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     from project_finalizer.commands import validate as command
 
-    monkeypatch.setattr(command, "build_default_registry", lambda: ValidatorRegistry([BoomValidator()]))
+    monkeypatch.setattr(
+        command, "build_default_registry", lambda: ValidatorRegistry([BoomValidator()])
+    )
     exit_code = main(["validate", "--project", str(tmp_path)])
     assert exit_code == int(ExitCode.INTERNAL_WORKFLOW_ERROR)
 
 
-def test_validate_cli_json_preserves_validation_exit_semantics(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
+def test_validate_cli_json_preserves_validation_exit_semantics(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
     from project_finalizer.commands import validate as command
 
-    monkeypatch.setattr(command, "build_default_registry", lambda: ValidatorRegistry([AValidator()]))
+    monkeypatch.setattr(
+        command, "build_default_registry", lambda: ValidatorRegistry([AValidator()])
+    )
     exit_code = main(["validate", "--project", str(tmp_path), "--format", "json"])
     assert exit_code == int(ExitCode.VALIDATION_FAILED)
     payload = json.loads(capsys.readouterr().out)

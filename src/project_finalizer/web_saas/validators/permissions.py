@@ -14,7 +14,14 @@ class PermissionsValidator:
         permissions = mapping(ctx, "permissions")
         issues = []
         if not permissions.get("catalog"):
-            issues.append(issue("WS_AUTHZ_CATALOG_REQUIRED", "authorization requires a permission catalog"))
+            issues.append(
+                issue("WS_AUTHZ_CATALOG_REQUIRED", "authorization requires a permission catalog")
+            )
         if permissions.get("backend_authoritative") is False:
-            issues.append(issue("WS_AUTHZ_BACKEND_AUTHORITY_REQUIRED", "backend authorization must be authoritative"))
+            issues.append(
+                issue(
+                    "WS_AUTHZ_BACKEND_AUTHORITY_REQUIRED",
+                    "backend authorization must be authoritative",
+                )
+            )
         return ValidationReport(tuple(issues))
