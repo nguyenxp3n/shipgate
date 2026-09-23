@@ -17,7 +17,17 @@ def _print_human(report) -> None:
 
 
 def handle_validate(args: argparse.Namespace) -> int:
-    report = build_default_registry().run(ValidationContext(project_root=args.project.resolve()))
+    root = args.project.resolve()
+    from project_finalizer.commands.release import _is_workflow_repository
+
+    if _is_workflow_repository(root):
+        from project_finalizer.models import ValidationReport
+        from project_finalizer.testing import validate_self_hosting
+
+        result = validate_self_hosting(root)
+        report = ValidationReport(issues=result.issues)
+    else:
+        report = build_default_registry().run(ValidationContext(project_root=root))
     if args.format == "json":
         print(
             json.dumps(

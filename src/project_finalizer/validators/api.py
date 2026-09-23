@@ -9,9 +9,10 @@ import yaml
 from project_finalizer.models import ValidationIssue, ValidationReport
 from project_finalizer.validators import ValidationContext
 
-_library_validate_spec: Any
 try:
-    from openapi_spec_validator import validate_spec as _library_validate_spec
+    from openapi_spec_validator import validate_spec
+
+    _library_validate_spec: Any = validate_spec
 except ImportError:  # exact dependency gate is handled explicitly at validation time
     _library_validate_spec = None
 
